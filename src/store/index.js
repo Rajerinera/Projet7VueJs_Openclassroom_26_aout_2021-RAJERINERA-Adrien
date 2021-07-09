@@ -1,8 +1,26 @@
 import { createStore } from "vuex";
+const axios = require("axios")
 
-export default createStore({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {},
-});
+const store = createStore({
+  state: {
+
+  },
+  actions: {
+    createAccount: ({ commit }, userInfos) => {
+      commit,
+        console.log(userInfos)
+      axios({
+        method: 'post',
+        url: 'http://localhost:3000/signup/',
+        data: {
+          email: "adrien.rajerinera@live.fr",
+          password: "Rajerinera12",
+        }
+      });
+    }
+  },
+
+})
+export default store;
+'http://localhost:3000/signup/'
+//createAccount: ({ commit }, userInfos) => {

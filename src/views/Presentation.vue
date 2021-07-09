@@ -1,6 +1,6 @@
 <template>
-    <div class="about">
-        <p>About us</p>
+    <div class="presentation">
+        <p>Presentation</p>
     </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
 </script>
 
 <style scoped>
-    .about{
+    .presentation{
         display: flex;
         justify-content: center; 
         align-items: center;

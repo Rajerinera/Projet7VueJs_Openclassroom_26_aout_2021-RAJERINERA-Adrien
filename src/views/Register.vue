@@ -1,19 +1,19 @@
 <template>
-    <div class="about">
-        <p>About us</p>
+    <div class="register">
+        <Register/>
     </div>
 </template>
 
 <script>
+import Register from "../components/Register.vue";
 export default {
-    setup() {
-        
-    },
+   name: "register",
+   components: { Register }
 }
 </script>
 
 <style scoped>
-    .about{
+    .register{
         display: flex;
         justify-content: center; 
         align-items: center;

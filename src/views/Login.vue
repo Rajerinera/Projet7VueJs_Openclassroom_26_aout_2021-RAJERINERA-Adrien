@@ -1,19 +1,19 @@
 <template>
-    <div class="about">
-        <p>About us</p>
+    <div class="login">
+      <Log/>
     </div>
 </template>
 
 <script>
+import Log from "../components/Log.vue";
 export default {
-    setup() {
-        
-    },
+   name: "login",
+   components: { Log }
 }
 </script>
 
 <style scoped>
-    .about{
+    .login{
         display: flex;
         justify-content: center; 
         align-items: center;
