@@ -1,9 +1,8 @@
 import { createStore } from "vuex";
 const axios = require("axios")
-
 const store = createStore({
   state: {
-
+      
   },
   actions: {
     createAccount: ({ commit }, userInfos) => {
@@ -13,8 +12,9 @@ const store = createStore({
         method: 'post',
         url: 'http://localhost:3000/signup/',
         data: {
-          email: "adrien.rajerinera@live.fr",
-          password: "Rajerinera12",
+          email: userInfos.email,
+          password: userInfos.password
+        
         }
       });
     }
