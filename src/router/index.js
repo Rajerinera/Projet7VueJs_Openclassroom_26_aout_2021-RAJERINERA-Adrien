@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Dashboard from "../views/Dashboard.vue";
-
+import Comment from "../views/Comment.vue"
 const routes = [
   {
     path: "/",
@@ -8,22 +8,32 @@ const routes = [
     children: [
       {
         path: "",
+        name: "Presentation",
         component: () => import ("../views/Presentation.vue")
       },
       {
         path: "/login",
+        name: "Login",
         component: () => import ("../views/Login.vue")
       },
       {
         path: "/register",
+        name: "Register",
         component: () => import ("../views/Register.vue")
       },
       {
         path: "/about",
+        name: "About",
         component: () => import ("../views/About.vue")
       },
     ]
   },
+  {
+    path: "/comment",
+    name: "Comment",
+    component: Comment,
+  },
+  
   
 ];
 

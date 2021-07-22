@@ -34,6 +34,7 @@ export default {
         display: flex;
         flex-direction: column;
         margin-top: 40px;
+        
     }
     .menu-items > * {
         margin-top: 60px;
@@ -44,5 +45,6 @@ export default {
         cursor: pointer;
         color: black;
         font-size: 15px;
+        color: white;
     }
 </style>

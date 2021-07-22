@@ -3,6 +3,13 @@
     <!-- Login Form -->
     <form>
       <input
+        v-model="name"
+        type="text"
+        id="name"
+        class="fadeIn third"
+        placeholder="name"
+      />
+      <input
         v-model="email"
         type="text"
         id="login"
@@ -33,17 +40,20 @@ export default {
     return {
       email: "",
       password: "",
+      name:"",
     };
   },
   methods: {
     createAccount: function () {
+      const self = this;
       this.$store
         .dispatch("createAccount", {
           email: this.email,
           password: this.password,
+          name:  this.name,
         })
-        .then(function (response) {
-          console.log(response);
+        .then(function () {
+          self.$router.push('/register')
         }),
         function (error) {
           console.log(error);
