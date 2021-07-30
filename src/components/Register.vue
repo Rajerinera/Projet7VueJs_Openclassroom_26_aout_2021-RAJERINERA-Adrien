@@ -49,8 +49,8 @@ export default {
           succès: this.succès = true,
         })
         .then(function () {
-         
-          self.$router.push('/comment')
+          
+          self.$router.push('/comment/:id')
 
         }),
         function (error) {

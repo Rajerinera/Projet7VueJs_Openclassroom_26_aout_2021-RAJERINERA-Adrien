@@ -3,61 +3,68 @@
     <!-- Login Form -->
     <form>
       <input
-        v-model="name"
+        v-model="dataLog.name"
         type="text"
         id="name"
         class="fadeIn third"
         placeholder="name"
       />
       <input
-        v-model="email"
+        v-model="dataLog.email"
         type="text"
         id="login"
         class="fadeIn second"
         placeholder="email"
       />
       <input
-        v-model="password"
+        v-model="dataLog.password"
         type="text"
         id="password"
         class="fadeIn third"
         placeholder="password"
       />
-      <input
-        @click="createAccount()"
+      <button
+        @click="logaccount"
+        class="w-100 btn btn-lg btn-primary"
         type="submit"
-        class="fadeIn fourth"
-        value="S'inscrire"
-      />
+      >
+        S'inscrire
+      </button>
     </form>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Log",
-  data: function () {
+  data() {
     return {
-      email: "",
-      password: "",
-      name:"",
+      dataLog: {
+        name: "",
+        email: "",
+        password: "",
+      },
+      error: "",
+      err: "",
     };
   },
   methods: {
-    createAccount: function () {
-      const self = this;
-      this.$store
-        .dispatch("createAccount", {
-          email: this.email,
-          password: this.password,
-          name:  this.name,
+    logaccount: function () {
+      const datalog1 = "test" 
+      if(datalog1){
+      axios
+        .post("http://localhost:3000/signup/", this.dataLog)
+        .then((response) => {
+          console.log(response);
         })
-        .then(function () {
-          self.$router.push('/register')
-        }),
-        function (error) {
+        .catch((error) => {
+          this.err = error.response;
           console.log(error);
-        };
+        });
+      }else{
+        this.err=('Email incorrect')
+      }
     },
   },
 };
