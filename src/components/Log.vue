@@ -1,7 +1,7 @@
 <template>
   <div id="formContent">
     <!-- Login Form -->
-    <form>
+    <fieldset>
       <input
         v-model="dataLog.name"
         type="text"
@@ -30,7 +30,7 @@
       >
         S'inscrire
       </button>
-    </form>
+    </fieldset>
   </div>
 </template>
 
@@ -57,6 +57,7 @@ export default {
         .post("http://localhost:3000/signup/", this.dataLog)
         .then((response) => {
           console.log(response);
+          location.replace('http://localhost:8080/register')
         })
         .catch((error) => {
           this.err = error.response;
@@ -71,7 +72,7 @@ export default {
 </script>
 
 <style scoped>
-form {
+fieldset {
   display: flex;
   flex-direction: column;
 }

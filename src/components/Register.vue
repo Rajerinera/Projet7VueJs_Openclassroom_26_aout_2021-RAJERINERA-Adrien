@@ -1,68 +1,73 @@
 <template>
   <div id="formContent">
     <!-- Login Form -->
-    <form>
+    <fieldset>
       <input
         type="text"
         id="login"
         class="fadeIn second"
         placeholder="email"
-        v-model="email"
+        v-model="dataConnect.email"
       />
       <input
         type="text"
         id="password"
         class="fadeIn third"
         placeholder="password"
-        v-model="password"
+        v-model="dataConnect.password"
       />
-      <input
-        @click="login()"
+       <button
+        @click="loginAccount"
+        class="w-100 btn btn-lg btn-primary"
         type="submit"
-        class="fadeIn fourth"
-        value="Se connecter"
-      />
-      <div class="alert" v-if="succès">réussis</div>
-    </form>
+      >
+        Se connecter
+      </button>
+    </fieldset>
   </div>
 </template>
 
 <script>
-
-
+import axios from 'axios';
 export default {
   name: "register",
-  data: function () {
+  data () {
     return {
-      email: "",
-      password: "",
-      succès: false,
+        dataConnect:{
+          email: null,
+          password: null,
+        },
+        err: ''
+     
     };
   },
   methods: {
-    login: function () {
-      const self = this;
-      this.$store
-        .dispatch("login", {
-          email: this.email,
-          password: this.password,
-          succès: this.succès = true,
+    loginAccount: function(){
+      if(
+        this.email !== null ||
+        this.password !== null
+      ){
+        axios
+        .post("http://localhost:3000/login", this.dataConnect
+        )
+        .then(response =>{
+          console.log(response)
         })
-        .then(function () {
+        .catch(error =>{
           
-          self.$router.push('/comment/:id')
-
-        }),
-        function (error) {
           console.log(error);
-        };
-    },
-  },
-};
+        })
+      }else{
+        console.log('echec')
+      }
+    }
+  }
+  
+}
 </script>
 
 <style scoped>
-form {
+fieldset {
   display: flex;
   flex-direction: column;
 }
