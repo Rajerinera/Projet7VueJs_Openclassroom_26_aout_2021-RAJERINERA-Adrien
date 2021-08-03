@@ -1,6 +1,9 @@
 <template>
 
 <div class="container">
+    <div>
+        <button @click="createUser">ceci est un test pour faire apparaître Mr</button>
+    </div>
     <div class="row">
         <div class="panel panel-default widget">
             <div class="panel-heading">
@@ -106,6 +109,36 @@
     </div>
 </div>
 </template>
+<script>
+import axios from "axios"
+export default {
+  name: "comment",
+  data() {
+    return {
+      user: [],
+      name: "",
+      id: localStorage.getItem('userChoice') || null
+    };
+  },
+  methods: {
+        async createUser(){
+        await axios
+        .get(`http://localhost:3000/${this.id}`, {
+            headers:{
+                'Authorization': 'Bearer' + localStorage.getItem("userToken")
+            }
+        })
+        .then((response) => {
+            console.log(response.data);
+        })
+        .catch((error) =>{  
+            console.log(error); 
+        }) 
+        }
+        
+  }
+}
+</script>
 <style scoped>
 body { padding-top:30px; }
 .widget .panel-body { padding:0px; }

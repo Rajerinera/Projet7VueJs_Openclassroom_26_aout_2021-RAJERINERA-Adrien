@@ -1,7 +1,7 @@
 <template>
   <div>
     <Nav/>
-    <Commentary />
+    <Commentary/>
   </div>
 </template>
 

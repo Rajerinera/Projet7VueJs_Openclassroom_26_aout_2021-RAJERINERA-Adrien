@@ -29,7 +29,7 @@ const routes = [
     ]
   },
   {
-    path: "/comment/:id" ,
+    path: "/comment" ,
     name: "Comment",
     component: Comment,
   },

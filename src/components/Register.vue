@@ -28,6 +28,7 @@
 </template>
 
 <script>
+
 import axios from 'axios';
 export default {
   name: "register",
@@ -43,6 +44,7 @@ export default {
   },
   methods: {
     loginAccount: function(){
+      const self = this
       if(
         this.email !== null ||
         this.password !== null
@@ -52,6 +54,12 @@ export default {
         )
         .then(response =>{
           console.log(response)
+          const userchoice = response.data.result.iduser
+          const userToken = response.data.token
+          localStorage.setItem("userChoice", userchoice)
+          localStorage.setItem("userToken", userToken)
+          self.$router.push('/comment')
+          console.log("réussis")
         })
         .catch(error =>{
           
