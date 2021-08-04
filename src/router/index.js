@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Dashboard from "../views/Dashboard.vue";
 import Comment from "../views/Comment.vue"
+import Contact from "../views/Contact.vue"
+import Profile from "../views/Profile.vue"
 const routes = [
   {
     path: "/",
@@ -33,7 +35,16 @@ const routes = [
     name: "Comment",
     component: Comment,
   },
-  
+  {
+    path: "/contact",
+    name: "Contact",
+    component: Contact,
+  },
+  {
+    path:"/profile",
+    name: "Profile",
+    component: Profile,
+  }
   
 ];
 

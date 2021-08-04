@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Commentary from "../components/Commentary.vue";
 import Nav from "../components/Nav.vue"
+import Commentary from "../components/Commentary.vue"
 export default {
   name: "commentary",
   components: {

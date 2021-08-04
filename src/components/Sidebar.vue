@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <div class="title">Titre du site</div>
+    <img class="title" src="../assets/image/icon-left-font-monochrome-white.png">
     <div class="menu-items">
       <router-link to="/" active-class="active" tag="button" class="side-btn">
         <div class="link-container">Presentation</div>
@@ -25,8 +25,10 @@ export default {
 </script>
 
 <style scoped>
+    img{
+      width: 80%;
+    }
     .title{
-        color: white;
         font-size: 30px;
         margin-top: 15px;
     }
