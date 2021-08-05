@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper bg-white mt-sm-5">
-    <h4 class="pb-4 border-bottom">Account settings</h4>
+    <h4 class="pb-4 border-bottom"> Modifier votre profil </h4>
     <div class="d-flex align-items-start py-3 border-bottom">
       <img
         src="../assets/image/icon.png"
@@ -16,7 +16,7 @@
     <div class="py-2">
       <div class="row py-2">
         <div class="col-md-6">
-          <label for="firstname"> Name </label>
+          <p>Votre nom :  {{user.name}} </p>
           <input
             type="text"
             class="bg-light form-control"
@@ -26,7 +26,7 @@
       </div>
       <div class="row py-2">
         <div class="col-md-6">
-          <label for="email">Email</label>
+          <label>Votre email : {{user.email}}</label>
           <input
             type="text"
             class="bg-light form-control"
@@ -45,41 +45,24 @@
         </div>
       </div>
     </div>
-    <div>
-        <button @click="createUser" for="name">ceci est un test pour faire apparaître Mr{{user}}</button>
-    </div>
   </div>
 </template>
 <script>
-import axios from "axios";
+import {mapState} from "vuex";
 export default {
   name: "comment",
   data() {
     return {
-      user: [],
-      name: "",
-      id: localStorage.getItem("userChoice") || null,
+     
     };
   },
-  methods: {
-    async createUser() {
-      this.user = [];
-      await axios
-        .get(`http://localhost:3000/${this.id}`, {
-          headers: {
-            Authorization: "Bearer" + localStorage.getItem("userToken"),
-          },
-        })
-        .then((response) => {
-          console.log(response.data);
-          this.user = response.data[0].name;
-          console.log(this.user);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
+  computed: {
+    ...mapState(['user']),
+      
   },
+  mounted(){
+    this.$store.dispatch('getInfo')
+  }
 };
 </script>
 <style scoped>
