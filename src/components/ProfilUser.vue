@@ -41,7 +41,7 @@
       </div>
       <div class="d-sm-flex align-items-center pt-3" id="deactivate">
         <div class="ml-auto">
-          <button class="btn danger">Supprimer votre compte</button>
+          <button class="btn danger" type="submit" @click="deleteAccount" >Supprimer votre compte</button>
         </div>
       </div>
     </div>
@@ -49,6 +49,7 @@
 </template>
 <script>
 import {mapState} from "vuex";
+import axios from "axios";
 export default {
   name: "comment",
   data() {
@@ -62,6 +63,25 @@ export default {
   },
   mounted(){
     this.$store.dispatch('getInfo')
+  },
+  methods:{
+    deleteAccount() {
+      const deleteUser = window.confirm('Etes vous sûr?') 
+      if (deleteUser == true){
+        const id = localStorage.getItem('userChoice')
+        axios.delete("http://localhost:3000/" + id,{
+           headers: {
+            Authorization: "Bearer" + localStorage.getItem("userToken"),
+          }  
+        })
+        .then(() =>{
+          localStorage.clear();
+          location.replace(location.origin);
+          console.log("Delete fait")
+        })
+        .catch((error) => console.log(error));
+      }
+    }
   }
 };
 </script>
