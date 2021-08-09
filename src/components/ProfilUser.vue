@@ -21,6 +21,7 @@
             type="text"
             class="bg-light form-control"
             placeholder="Steve"
+            v-model="name"
           />
         </div>
       </div>
@@ -31,12 +32,13 @@
             type="text"
             class="bg-light form-control"
             placeholder="steve_@email.com"
+            v-model="email"
           />
         </div>
       </div>
       
       <div class="py-3 pb-4 border-bottom">
-        <button class="btn btn-primary mr-3">Save Changes</button>
+        <button class="btn btn-primary mr-3" type="submit" @click="updateUser">Save Changes</button>
         <button class="btn border button">Cancel</button>
       </div>
       <div class="d-sm-flex align-items-center pt-3" id="deactivate">
@@ -54,7 +56,8 @@ export default {
   name: "comment",
   data() {
     return {
-     
+     email: "",
+     name: "",
     };
   },
   computed: {
@@ -65,6 +68,23 @@ export default {
     this.$store.dispatch('getInfo')
   },
   methods:{
+    updateUser(){
+      const id = localStorage.getItem('userChoice')
+      axios
+      .patch("http://localhost:3000/" + id,{
+
+          name: this.name,
+          email: this.email,
+          id: id,
+      },
+      {
+        headers:{
+          Authorization: "Bearer" + localStorage.getItem("userToken"),
+        }
+      })
+      .then((response) => console.log("success", response))
+      .catch((error) => console.log(error))
+    },
     deleteAccount() {
       const deleteUser = window.confirm('Etes vous sûr?') 
       if (deleteUser == true){
