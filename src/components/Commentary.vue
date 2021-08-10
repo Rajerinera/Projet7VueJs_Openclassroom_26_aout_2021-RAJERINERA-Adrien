@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Votre actualité</h1>
+    <h1>Actualité</h1>
     <div class="container">
       <div class="row">
         <div class="panel panel-default widget">
@@ -71,7 +71,7 @@
                         >Admin Panel Quick Shortcuts</a
                       >
                       <div class="mic-info">
-                        By: <a href="#">Bhaumik Patel</a> 
+                        By: <a href="#">Bhaumik Patel</a>
                       </div>
                     </div>
                     <div class="comment-text">
@@ -164,12 +164,21 @@
     </div>
   </div>
 </template>
+<script>
+/*export default {
+  name: "comment",
+  data() {
+    comment: {
+    }
+  },
+}*/
+</script>
 <style scoped>
 body {
   padding-top: 30px;
 }
-.container{
-    width: 70%;
+.container {
+  width: 70%;
 }
 .widget .panel-body {
   padding: 0px;

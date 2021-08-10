@@ -25,7 +25,7 @@
         <li class="nav-item">
           <router-link class="nav-link" to="/contact"><b>Contact</b></router-link>
         </li>
-        <li class="nav-item">
+        <li @click="disconnected" class="nav-item">
           <a class="nav-link" href="#"><b>Deconnexion</b></a>
         </li>
       </ul>
@@ -36,10 +36,17 @@
 export default {
     data: function() {
         return{
-            
+     
         }
         
     },
+    methods:{
+      disconnected(){
+        localStorage.removeItem("userChoice");
+        localStorage.removeItem("userToken");
+        this.$router.push("/register");
+      }
+    }
 }
 </script>
 <style scoped>
