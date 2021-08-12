@@ -3,6 +3,7 @@ import Dashboard from "../views/Dashboard.vue";
 import Comment from "../views/Comment.vue"
 import Contact from "../views/Contact.vue"
 import Profile from "../views/Profile.vue"
+import Allcomment from "../views/Allcomment.vue"
 const routes = [
   {
     path: "/",
@@ -44,6 +45,11 @@ const routes = [
     path:"/profile",
     name: "Profile",
     component: Profile,
+  },
+  {
+    path: "/comments",
+    name: "Allcomment",
+    component: Allcomment
   }
   
 ];

@@ -53,7 +53,7 @@
 import {mapState} from "vuex";
 import axios from "axios";
 export default {
-  name: "comment",
+  name: "profiling",
   data() {
     return {
      email: "",
@@ -82,7 +82,7 @@ export default {
           Authorization: "Bearer" + localStorage.getItem("userToken"),
         }
       })
-      .then((response) => console.log("success", response))
+      .then((response) => console.log("success", response), location.reload())
       .catch((error) => console.log(error))
     },
     deleteAccount() {

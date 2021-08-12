@@ -18,12 +18,13 @@ export default {
     return {
       name: "",
       users: [],
+      comments:[],
     };
   },
   mounted() {
     this.users = [];
     axios
-      .get("http://localhost:3000/users/")
+      .get("http://localhost:3000/users")
       .then((response) => {
         console.log(response.data.data);
         this.users = response.data.data;
@@ -31,7 +32,7 @@ export default {
       })
       .catch((error) => {
         console.log(error);
-      });
+      })
   },
 };
 </script> 

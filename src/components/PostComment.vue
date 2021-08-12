@@ -61,7 +61,7 @@ export default {
       postComment: {
         title: "",
         content: "",
-        idtestuser: iduser1 ,
+        idcom: iduser1 ,
       },
       err: "",
     };

@@ -1,6 +1,6 @@
 <template>
   <div>
-  <button @click="getcomment">test</button>
+  <button type="submit" @click="getcomment">test</button>
   </div>
 </template>
 <script>
@@ -19,10 +19,14 @@ export default {
     //...mapState(['comment']),
   //},
   methods: {
-    getcomment: async function ()  {
+    getcomment: function ()  {
     this.comments = [];
-    await axios
-      .get("http://localhost:3000/comments")
+    axios
+      .get("http://localhost:3000/api/comments" , {
+          headers: {
+            Authorization: "Bearer" + localStorage.getItem("userToken"),
+          },
+        })
       .then((response) => {
        console.log(response)
       })
