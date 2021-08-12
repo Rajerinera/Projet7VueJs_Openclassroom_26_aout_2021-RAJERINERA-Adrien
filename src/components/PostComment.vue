@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>N'hésitez pas à publier !</h1>
+    <button @click="commentOne"> tesst </button>
     <!-- component envoi formulaire pour les post emis par le user connecter -->
     <div class="d-flex justify-content-center">
       <!-- debut check formulaire -->
@@ -85,6 +86,22 @@ export default {
         console.log("problème");
       }
     },
+    commentOne: function(){
+      let commentId = localStorage.getItem("userChoice")
+      axios
+        .get('http://localhost:3000/api/comment/' + commentId, {
+          headers: {
+            Authorization: "Bearer" + localStorage.getItem("userToken"),
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          console.log(response.data)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   },
 };
 </script>
