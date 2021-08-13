@@ -47,6 +47,24 @@ export default new Vuex.Store({
           console.log(error);
         });
     },
+    commentOne: function(value){
+      let commentId = localStorage.getItem("userChoice")
+      axios
+        .get('http://localhost:3000/api/comment/' + commentId, {
+          headers: {
+            Authorization: "Bearer" + localStorage.getItem("userToken"),
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          console.log(response.data)
+          value.commit('commentInfo', [response.data[0].idcom, response.data[5].title, response.data[5].content])
+          console.log(value)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     /*getComment(value) {
       axios
         .get('http://localhost:3000/comments' , {

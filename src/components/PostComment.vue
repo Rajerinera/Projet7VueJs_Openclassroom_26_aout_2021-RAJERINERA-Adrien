@@ -1,7 +1,24 @@
 <template>
   <div>
     <h1>N'hésitez pas à publier !</h1>
-    <button @click="commentOne"> tesst </button>
+    <div class= "form">
+    <p>{{comment.title}}</p>
+    <input
+            type="text"
+            class="bg-light form-control"
+            placeholder="Steve"
+            v-model="title1"
+          />
+    <p>{{comment.content}}</p>
+    <input
+            type="text"
+            class="bg-light form-control"
+            placeholder="Steve"
+            v-model="content1"
+          />
+    <button class="btn-btn-danger" @click="updateCom">clique pour changer</button>
+    <button class="btn-btn-primary" @click="deleteCom"> clique pour supp </button>
+    </div>
     <!-- component envoi formulaire pour les post emis par le user connecter -->
     <div class="d-flex justify-content-center">
       <!-- debut check formulaire -->
@@ -54,6 +71,7 @@
 <script>
 let iduser1 = localStorage.getItem("userChoice")
 console.log(iduser1)
+import {mapState} from "vuex";
 import axios from "axios";
 export default {
   name: "postCom",
@@ -64,8 +82,17 @@ export default {
         content: "",
         idcom: iduser1 ,
       },
+      title1: "nc",
+      content1: "nc",
       err: "",
     };
+  },
+  computed: {
+    ...mapState(['comment']),
+      
+  },
+  mounted(){
+    this.$store.dispatch('commentOne')
   },
   methods: {
     commentUse: function () {
@@ -86,22 +113,40 @@ export default {
         console.log("problème");
       }
     },
-    commentOne: function(){
-      let commentId = localStorage.getItem("userChoice")
+     updateCom: function (){
+      let commentId = localStorage.getItem('userChoice')
       axios
-        .get('http://localhost:3000/api/comment/' + commentId, {
-          headers: {
+      .patch("http://localhost:3000/api/comment/" + commentId,{
+
+          title: this.title1,
+          content: this.content1,
+          idcom: commentId,
+      },
+      {
+        headers:{
+          Authorization: "Bearer" + localStorage.getItem("userToken"),
+        }
+      })
+      .then((response) => console.log("success", response), location.reload())
+      .catch((error) => console.log(error))
+    },
+    deleteCom: function() {
+      const deleteComment = window.confirm('Etes vous sûr?') 
+      if (deleteComment == true){
+        let commentId = localStorage.getItem('userChoice')
+        axios.delete("http://localhost:3000/api/comment/" + commentId,{
+           headers: {
             Authorization: "Bearer" + localStorage.getItem("userToken"),
-          },
+          }  
         })
-        .then((response) => {
-          console.log(response);
-          console.log(response.data)
+        .then(() =>{
+          this.postComment,
+          console.log("Delete com fait")
         })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+        .catch((error) => console.log(error));
+      }
+    },
+    
   },
 };
 </script>
