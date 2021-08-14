@@ -1,5 +1,6 @@
 <template>
   <div class="media">
+      <h1>L'actualité du reséau! </h1>  
     <a class="pull-left" href="#"
       ><img
         class="media-object"
@@ -54,22 +55,28 @@ export default {
 };
 </script>
 <style scoped>
+h1{
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 50px;
+  width: 100%;
+  border-bottom: 1px solid black;
+}
 .media{
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-  border: 1px solid black;
-  padding: 10px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
-  border: 1px solid red;
+  justify-content: space-between;
 }
 .media-body{
  text-align: center;
- border: 1px solid black;
  margin-right: auto;
  margin-left: auto;
  width: 80%;
+ padding: 15px;
 }
 .content-item {
     padding:30px 0;
