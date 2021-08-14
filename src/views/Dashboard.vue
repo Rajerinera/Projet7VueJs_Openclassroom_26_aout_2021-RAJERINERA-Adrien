@@ -25,9 +25,11 @@ export default {
 }
 
 .content{
-  background-color: white;
-  border-radius: 20px;
-  margin: 6px 6px 6px 0px;
+  background-image: url("../assets/image/background.webp");
+  background-repeat: no-repeat;
+  background-color: #f2f2f2;
+  background-size:  cover;
+  background-position: center;
 }
 
 </style>
