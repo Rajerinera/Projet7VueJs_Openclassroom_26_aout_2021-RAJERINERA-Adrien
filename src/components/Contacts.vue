@@ -1,13 +1,13 @@
 <template>
-<div>
-<h1> La liste des inscrits </h1>
-  <ul>
-    <li class="use" v-for="user in users" :key="user.iduser">
-      <p class="name"> {{ user.name }}</p>
-      <p class="email"> {{ user.email }}</p>
-    </li>
-  </ul>
- </div>
+  <div class="body">
+    <h1>La liste des inscrits</h1>
+    <ul>
+      <li class="use" v-for="user in users" :key="user.iduser">
+        <p class="name">{{ user.name }}</p>
+        <p class="email">{{ user.email }}</p>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -18,7 +18,7 @@ export default {
     return {
       name: "",
       users: [],
-      comments:[],
+      comments: [],
     };
   },
   mounted() {
@@ -32,23 +32,22 @@ export default {
       })
       .catch((error) => {
         console.log(error);
-      })
+      });
   },
 };
 </script> 
 <style scoped>
-.use{
+.use {
   text-decoration: none;
   display: flex;
   justify-content: space-between;
 }
-.email{
+.email {
   margin-right: 40px;
   width: 40%;
 }
-.name{
+.name {
   width: 90px;
-  border: 1px solid black
+  border: 1px solid black;
 }
-
 </style>

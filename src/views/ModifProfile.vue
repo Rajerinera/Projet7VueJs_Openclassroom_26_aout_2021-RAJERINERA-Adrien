@@ -1,24 +1,23 @@
 <template>
   <div>
     <Nav/>
-    <ProfilUser/>
+    <ModifProfil/>
     <Footer/>
   </div>
 </template>
 
 <script>
-import Nav from "../components/Nav.vue";
-import ProfilUser from "../components/ProfilUser.vue";
+import Nav from "../components/Nav.vue"
+import ModifProfil from "../components/ModifProfil.vue"
 import Footer from "../components/Footer.vue"
-
 export default {
-  name: "contact",
+  name: "updateProfile",
   components: {
     Nav,
-    ProfilUser,
+    ModifProfil,
     Footer,
   },
 };
 </script>
 
-<style lang="scss"></style>
+<style></style>

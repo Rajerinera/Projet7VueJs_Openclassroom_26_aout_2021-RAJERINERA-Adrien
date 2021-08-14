@@ -54,6 +54,6 @@ export default {
     width: 150px;
 }
 .custom-navbar{background-color:#343a40;}
-.nav-link{color: white}
+.nav-link{color: whitesmoke}
 @media only screen and (max-width: 760px) { #logo_custom{width: 40%;}}
 </style>

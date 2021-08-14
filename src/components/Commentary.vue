@@ -16,7 +16,7 @@
         <li><i class="fa fa-thumbs-up"></i>13</li>
       </ul>
       <ul class="list-unstyled list-inline media-detail pull-right">
-        <li class=""><a href="">Modifier</a></li>
+        <li class=""><router-link class="nav-link" to="/modifProfil"><b>Modifier</b></router-link></li>
         <li class=""><a href="">Supprimer</a></li>
       </ul>
     </div>
