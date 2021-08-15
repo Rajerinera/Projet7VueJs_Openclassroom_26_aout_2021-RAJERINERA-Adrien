@@ -23,7 +23,8 @@ export default new Vuex.Store({
         state.user.email = email,
         state.user.password = password
     },
-    commentInfo(state, [idcom, title, content]) {
+    commentInfo(state, [idcomment, idcom, title, content]) {
+        state.comment.idcomment = idcomment,
         state.comment.idcom = idcom,
         state.comment.title = title,
         state.comment.content = content
@@ -58,7 +59,7 @@ export default new Vuex.Store({
         .then((response) => {
           console.log(response);
           console.log(response.data)
-          value.commit('commentInfo', [response.data[0].idcom, response.data[5].title, response.data[5].content])
+          value.commit('commentInfo', [response.data[0].idcomment,response.data[0].idcom, response.data[0].title, response.data[0].content])
           console.log(value)
         })
         .catch((error) => {

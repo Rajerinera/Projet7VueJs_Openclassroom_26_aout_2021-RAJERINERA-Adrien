@@ -3,7 +3,7 @@ import Dashboard from "../views/Dashboard.vue";
 import Comment from "../views/Comment.vue"
 import Contact from "../views/Contact.vue"
 import Profile from "../views/Profile.vue"
-import ModifProfil from "../views/ModifProfile.vue"
+import ModifCommentary from "../views/ModifCommentary.vue"
 const routes = [
   {
     path: "/",
@@ -47,9 +47,9 @@ const routes = [
     component: Profile,
   },
   {
-    path:"/modifProfil",
-    name: "ModifProfil",
-    component: ModifProfil,
+    path:"/modifComment",
+    name: "ModifComment",
+    component: ModifCommentary,
   }
   
 ];

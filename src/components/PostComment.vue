@@ -50,7 +50,6 @@
 <script>
 let iduser1 = localStorage.getItem("userChoice");
 console.log(iduser1);
-import { mapState } from "vuex";
 import axios from "axios";
 export default {
   name: "postCom",
@@ -61,17 +60,9 @@ export default {
         content: "",
         idcom: iduser1,
       },
-      title1: "nc",
-      content1: "nc",
       err: "",
       show: true,
     };
-  },
-  computed: {
-    ...mapState(["comment"]),
-  },
-  mounted() {
-    this.$store.dispatch("commentOne");
   },
   methods: {
     commentUse: function () {
@@ -92,27 +83,7 @@ export default {
       } else {
         console.log("problème");
       }
-    },
-    updateCom: function () {
-      let commentId = localStorage.getItem("userChoice");
-      axios
-        .patch(
-          "http://localhost:3000/api/comment/" + commentId,
-          {
-            title: this.title1,
-            content: this.content1,
-            idcom: commentId,
-          },
-          {
-            headers: {
-              Authorization: "Bearer" + localStorage.getItem("userToken"),
-            },
-          }
-        )
-        .then((response) => console.log("success", response), location.reload())
-        .catch((error) => console.log(error));
-    },
-    
+    },  
   },
 };
 </script>

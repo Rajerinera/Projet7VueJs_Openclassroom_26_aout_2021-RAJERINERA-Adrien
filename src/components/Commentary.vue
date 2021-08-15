@@ -16,7 +16,7 @@
         <li><i class="fa fa-thumbs-up"></i>13</li>
       </ul>
       <ul class="list-unstyled list-inline media-detail pull-right">
-        <li class=""><router-link class="nav-link" to="/modifProfil"><b>Modifier</b></router-link></li>
+        <li class=""><router-link class="nav-link" to="/modifComment"><b>Modifier</b></router-link></li>
         <li class=""><button v-if="idcom == comment.idcom" @click="deleteCom(comment)">Supprimer</button></li>
       </ul>
     </div>
