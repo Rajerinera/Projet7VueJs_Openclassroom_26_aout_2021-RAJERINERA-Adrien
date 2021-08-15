@@ -67,7 +67,7 @@ export default {
   methods:{
   updateCom: function (comment) {
       console.log(comment.idcomment)
-      axios
+     axios
         .patch(
           "http://localhost:3000/api/comment/" + comment.idcomment,
           {
@@ -81,7 +81,7 @@ export default {
             },
           }
         )
-        .then((response) => console.log("success", response), location.reload())
+        .then((response) => console.log("success", response), this.$router.push("/comment"))
         .catch((error) => console.log(error));
     },
   }
