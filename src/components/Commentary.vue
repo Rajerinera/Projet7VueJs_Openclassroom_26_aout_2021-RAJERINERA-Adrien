@@ -17,13 +17,14 @@
       </ul>
       <ul class="list-unstyled list-inline media-detail pull-right">
         <li class=""><router-link class="nav-link" to="/modifProfil"><b>Modifier</b></router-link></li>
-        <li class=""><a href="">Supprimer</a></li>
+        <li class=""><button v-if="idcom == comment.idcom" @click="deleteCom(comment)">Supprimer</button></li>
       </ul>
     </div>
   </div>
 </template>
 <script>
 import axios from "axios";
+let iduser1 = localStorage.getItem("userChoice");
 //import {mapState} from "vuex";
 export default {
   name: "comment",
@@ -31,6 +32,7 @@ export default {
     return {
       title: "",
       name: "",
+      idcom: iduser1,
       comments: [],
     };
   },
@@ -52,6 +54,26 @@ export default {
         console.log(error);
       });
   },
+  methods:{
+    async deleteCom(comment) {
+      const deleteComment = window.confirm("Etes vous sûr?");
+      if (deleteComment == true) {
+        console.log(comment.idcomment + "ceci")
+        await axios
+          .delete("http://localhost:3000/api/comment/" + comment.idcomment, {
+            headers: {
+              Authorization: "Bearer" + localStorage.getItem("userToken"),
+            },
+          })
+          .then((response) => {
+           console.log(response)
+           console.log("supprimer fait")
+           location.reload()
+          })
+          .catch((error) => console.log(error));
+      }
+    },
+  }
 };
 </script>
 <style scoped>

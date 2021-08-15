@@ -112,22 +112,7 @@ export default {
         .then((response) => console.log("success", response), location.reload())
         .catch((error) => console.log(error));
     },
-    deleteCom: function () {
-      const deleteComment = window.confirm("Etes vous sûr?");
-      if (deleteComment == true) {
-        let commentId = localStorage.getItem("userChoice");
-        axios
-          .delete("http://localhost:3000/api/comment/" + commentId, {
-            headers: {
-              Authorization: "Bearer" + localStorage.getItem("userToken"),
-            },
-          })
-          .then(() => {
-            this.postComment, console.log("Delete com fait");
-          })
-          .catch((error) => console.log(error));
-      }
-    },
+    
   },
 };
 </script>
