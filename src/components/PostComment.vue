@@ -31,7 +31,9 @@
                 required=""
                 rows="4"
                 v-model="postComment.content"
-              ></textarea>
+              >
+              </textarea>
+              <input type="file" name="image" class="form-control" @change="upload" />
             </div>
           </div>
         </fieldset>
@@ -58,13 +60,23 @@ export default {
       postComment: {
         title: "",
         content: "",
+        image: "",
         idcom: iduser1,
       },
+      selectedFileName:null,
+      selectedFile:null,
       err: "",
       show: true,
     };
   },
   methods: {
+    upload: function(event) {
+            this.selectedFile = event.target.files[0]
+            this.selectedFileName = event.target.files[0].name
+            console.log(this.selectedFile.name)
+            console.log(event)
+    },
+
     commentUse: function () {
       const commentlog = "test";
       if (commentlog) {
@@ -74,7 +86,7 @@ export default {
             console.log(response.data);
             console.log(response);
             console.log("commentaire envoyé à bdd");
-            location.reload();
+            //location.reload();
           })
           .catch((error) => {
             this.err = error.response;
