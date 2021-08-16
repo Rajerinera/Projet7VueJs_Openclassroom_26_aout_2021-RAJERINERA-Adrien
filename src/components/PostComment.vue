@@ -21,7 +21,7 @@
                 placeholder="Your title"
                 required=""
                 rows="3"
-                v-model="postComment.title"
+                v-model="title"
               >
               </textarea>
               <textarea
@@ -30,10 +30,16 @@
                 placeholder="Your message"
                 required=""
                 rows="4"
-                v-model="postComment.content"
+                v-model="content"
               >
               </textarea>
-              <input type="file" name="image" class="form-control" @change="upload" />
+
+              <input
+                type="file"
+                ref="image"
+                class="form-control"
+                @change="upload"
+              />
             </div>
           </div>
         </fieldset>
@@ -57,31 +63,43 @@ export default {
   name: "postCom",
   data() {
     return {
-      postComment: {
-        title: "",
-        content: "",
-        image: "",
-        idcom: iduser1,
-      },
-      selectedFileName:null,
-      selectedFile:null,
+      title: "",
+      content: "",
+      image: "",
+      idcom: iduser1,
+      selectedFileName: null,
+      selectedFile: null,
       err: "",
       show: true,
     };
   },
   methods: {
-    upload: function(event) {
-            this.selectedFile = event.target.files[0]
-            this.selectedFileName = event.target.files[0].name
-            console.log(this.selectedFile.name)
-            console.log(event)
+    upload: function () {
+      this.image = this.$refs.image.files[0];
+      console.log(this.image);
     },
-
     commentUse: function () {
-      const commentlog = "test";
-      if (commentlog) {
+      const fd = new FormData();
+      if (this.selectedFileName != null && this.selectedFile != null) {
+        fd.append("title", this.title);
+        fd.append("content", this.content);
+        fd.append("image", this.image, this.image.filename);
+        fd.append("idcom", this.idcom);
+      } else {
+        fd.append("title", this.title);
+        fd.append("content", this.content);
+        fd.append("image", this.image, this.image.filename)
+        fd.append("idcom", this.idcom);
+      }
+      console.log(fd);
+      let test = "test"
+      if (test) {
         axios
-          .post("http://localhost:3000/comment/", this.postComment)
+          .post("http://localhost:3000/comment/", fd, {
+            headers: {
+              Authorization: "Bearer" + localStorage.getItem("userToken"),
+            },
+          })
           .then((response) => {
             console.log(response.data);
             console.log(response);
@@ -93,9 +111,9 @@ export default {
             console.log(error);
           });
       } else {
-        console.log("problème");
+        console.log("error de merde");
       }
-    },  
+    },
   },
 };
 </script>
