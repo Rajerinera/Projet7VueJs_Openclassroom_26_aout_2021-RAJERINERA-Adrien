@@ -101,10 +101,11 @@ export default {
             },
           })
           .then((response) => {
+
             console.log(response.data);
             console.log(response);
             console.log("commentaire envoyé à bdd");
-            //location.reload();
+            location.reload();
           })
           .catch((error) => {
             this.err = error.response;

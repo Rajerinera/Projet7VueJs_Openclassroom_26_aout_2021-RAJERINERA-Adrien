@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     loginAccount: function () {
-      const self = this;
+      const self = this
       if (this.email !== null || this.password !== null) {
         axios
           .post("http://localhost:3000/login", this.dataConnect)

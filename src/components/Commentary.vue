@@ -10,6 +10,8 @@
     <div class="media-body" v-for="comment in comments" :key="comment.idcom">
       <h4 class="media-heading">{{comment.title}}</h4>
       <p>{{comment.content}}</p>
+      <img :src="comment.image">
+
       
   <ul class="list-unstyled list-inline media-detail pull-left">
         <li><i class="fa fa-calendar"></i>27/02/2014</li>
@@ -17,7 +19,7 @@
       </ul>
       <ul class="list-unstyled list-inline media-detail pull-right">
         <li class=""><router-link class="nav-link" to="/modifComment"><b>Modifier</b></router-link></li>
-        <li class=""><button v-if="idcom == comment.idcom" @click="deleteCom(comment)">Supprimer</button></li>
+        <li class=""><button v-if="idcom == comment.idcom || idcom == 9" @click="deleteCom(comment)">Supprimer</button></li>
       </ul>
     </div>
   </div>
@@ -32,6 +34,7 @@ export default {
     return {
       title: "",
       name: "",
+      image: "",
       idcom: iduser1,
       comments: [],
     };
@@ -49,6 +52,7 @@ export default {
       })
       .then((response) => {
         (this.comments = response.data), console.log(this.comments);
+        console.log(response)
       })
       .catch((error) => {
         console.log(error);
@@ -77,6 +81,13 @@ export default {
 };
 </script>
 <style scoped>
+img{
+  width: 50%;
+  height: 50%;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
 h1{
   margin-left: auto;
   margin-right: auto;

@@ -11,9 +11,11 @@ export default new Vuex.Store({
       password: "NC"
     },
     comment: {
+      idcomment: "NC",
       idcom: "NC",
       title: "NC",
-      content: "NC"
+      content: "NC",
+      image:"NC",
     }
   },
   mutations: {
@@ -23,11 +25,12 @@ export default new Vuex.Store({
         state.user.email = email,
         state.user.password = password
     },
-    commentInfo(state, [idcomment, idcom, title, content]) {
+    commentInfo(state, [idcomment, idcom, title, content, image]) {
         state.comment.idcomment = idcomment,
         state.comment.idcom = idcom,
         state.comment.title = title,
-        state.comment.content = content
+        state.comment.content = content,
+        state.comment.image= image
     }
   },
   actions: {
@@ -58,8 +61,8 @@ export default new Vuex.Store({
         })
         .then((response) => {
           console.log(response);
-          console.log(response.data)
-          value.commit('commentInfo', [response.data[0].idcomment,response.data[0].idcom, response.data[0].title, response.data[0].content])
+          console.log(response.data[0].image)
+          value.commit('commentInfo', [response.data[0].idcomment,response.data[0].idcom, response.data[0].title, response.data[0].content, response.data[0].image])
           console.log(value)
         })
         .catch((error) => {
