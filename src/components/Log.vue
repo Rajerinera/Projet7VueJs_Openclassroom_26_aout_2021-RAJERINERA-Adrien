@@ -56,6 +56,8 @@ export default {
       err: "",
     };
   },
+  
+
   methods: {
     logaccount: function () {
       const datalog1 = "test";

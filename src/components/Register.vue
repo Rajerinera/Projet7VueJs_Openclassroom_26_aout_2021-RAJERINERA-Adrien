@@ -34,17 +34,35 @@
 </template>
 
 <script>
+import useVuelidate from '@vuelidate/core'
+import { required, email, minLength } from '@vuelidate/validators'
 import axios from "axios";
 export default {
   name: "register",
   data() {
     return {
       dataConnect: {
-        email: null,
-        password: null,
+        email: "",
+        password: "",
       },
       err: "",
     };
+  },
+   setup () {
+    return { v$: useVuelidate() }
+  },
+ validations() {
+    return {
+      form: {
+        email: {
+           required, email 
+        },
+        password: {
+            required, 
+            min: minLength(8)
+        },
+      },
+    }
   },
   methods: {
     loginAccount: function () {

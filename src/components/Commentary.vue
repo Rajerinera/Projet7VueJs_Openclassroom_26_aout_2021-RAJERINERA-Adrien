@@ -12,11 +12,6 @@
       <p>{{comment.content}}</p>
       <img :src="comment.image">
 
-      
-  <ul class="list-unstyled list-inline media-detail pull-left">
-        <li><i class="fa fa-calendar"></i>27/02/2014</li>
-        <li><i class="fa fa-thumbs-up"></i>13</li>
-      </ul>
       <ul class="list-unstyled list-inline media-detail pull-right">
         <li class=""><router-link class="nav-link" to="/modifComment"><b>Modifier</b></router-link></li>
         <li class=""><button v-if="idcom == comment.idcom || idcom == 9" @click="deleteCom(comment)">Supprimer</button></li>
