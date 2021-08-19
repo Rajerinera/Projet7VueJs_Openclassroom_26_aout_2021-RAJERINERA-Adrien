@@ -14,21 +14,19 @@
 							<th>&nbsp;</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody  v-for="user in users" :key="user.iduser">
 						<tr>
-							<td>
+							<td class= "userClass">
 								<img src="../assets/image/icon.png" alt="icon">
-								<a href="#" class="user-link">Mila Kunis</a>
+								<p class="name">{{user.name}}</p>
 								<span class="user-subhead">Admin</span>
 							</td>
-							<td>
-								L'emploi
-							</td>
+							<td>{{user.job}}</td>
 							<td class="text-center">
 								<span class="label label-default">Inactive</span>
 							</td>
 							<td>
-								<a href="#">mila@kunis.com</a>
+								<a href="#">{{user.email}}</a>
 							</td>
 							<td style="width: 20%;">
 								<a href="#" class="table-link">
@@ -93,7 +91,15 @@ export default {
 };
 </script> 
 <style scoped>
-body{margin-top:20px;}
+.container{
+  width: 100%;
+}
+.userClass{
+  width: 20px;
+}
+.name{
+  padding-right: 10px;
+}
 
 
 /* USER LIST TABLE */

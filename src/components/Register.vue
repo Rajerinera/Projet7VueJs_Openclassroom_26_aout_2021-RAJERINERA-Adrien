@@ -55,7 +55,7 @@ export default {
             console.log(response);
             const userchoice = response.data.result.iduser;
             const userToken = response.data.token;
-            location.replace("http://localhost:8080/comment")
+            location.replace("http://localhost:8080/comment");
             localStorage.setItem("userChoice", userchoice);
             localStorage.setItem("userToken", userToken);
             console.log("réussis");

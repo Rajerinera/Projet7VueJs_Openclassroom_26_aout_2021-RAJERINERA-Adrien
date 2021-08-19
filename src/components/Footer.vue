@@ -14,7 +14,7 @@
 .footer {
   background-color: #343a40;
   position: fixed;
-  height: 50px;
+  height: 30px;
   bottom: 0px;
   left: 0px;
   right: 0px;
