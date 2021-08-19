@@ -7,13 +7,19 @@
         class="img"
         alt=""
       />
-      <div class="pl-sm-4 pl-2" id="img-section">
-        <b>Profile Photo</b>
-        <p>Accepted file type .png. Less than 1MB</p>
-        <button class="btn button border"><b>Upload</b></button>
-      </div>
     </div>
     <div class="py-2">
+      <div class="row py-2">
+        <div class="col-md-6">
+          <p>Votre Prénom :  {{user.first_name}} </p>
+          <input
+            type="text"
+            class="bg-light form-control"
+            placeholder="Steve"
+            v-model="first_name"
+          />
+        </div>
+      </div>
       <div class="row py-2">
         <div class="col-md-6">
           <p>Votre nom :  {{user.name}} </p>
@@ -27,19 +33,19 @@
       </div>
       <div class="row py-2">
         <div class="col-md-6">
-          <label>Votre email : {{user.email}}</label>
+          <label>Metier : {{user.job}}</label>
           <input
             type="text"
             class="bg-light form-control"
-            placeholder="steve_@email.com"
-            v-model="email"
+            placeholder="Agriculteur"
+            v-model="job"
           />
         </div>
       </div>
       
       <div class="py-3 pb-4 border-bottom">
-        <button class="btn btn-primary mr-3" type="submit" @click="updateUser">Save Changes</button>
-        <button class="btn border button">Cancel</button>
+        <button class="btn btn-primary mr-3" type="submit" @click="updateUser">Confirmer</button>
+        <router-link to="/comment"><button class="btn border button">Annuler</button></router-link>
       </div>
       <div class="d-sm-flex align-items-center pt-3" id="deactivate">
         <div class="ml-auto">
@@ -56,8 +62,9 @@ export default {
   name: "profiling",
   data() {
     return {
-     email: "",
+     first_name: "",
      name: "",
+     job: "",
     };
   },
   computed: {
@@ -72,14 +79,14 @@ export default {
       const id = localStorage.getItem('userChoice')
       axios
       .patch("http://localhost:3000/" + id,{
-
+          first_name:this.first_name,
           name: this.name,
-          email: this.email,
+          job: this.job,
           id: id,
       },
       {
         headers:{
-          Authorization: "Bearer" + localStorage.getItem("userToken"),
+        'Authorization':"Bearer " + localStorage.getItem("userToken"),
         }
       })
       .then((response) => console.log("success", response), location.reload())
@@ -91,7 +98,7 @@ export default {
         const id = localStorage.getItem('userChoice')
         axios.delete("http://localhost:3000/" + id,{
            headers: {
-            Authorization: "Bearer" + localStorage.getItem("userToken"),
+            'Authorization': "Bearer" + localStorage.getItem("userToken"),
           }  
         })
         .then(() =>{

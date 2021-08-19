@@ -27,15 +27,13 @@
           name="login"
           placeholder="password"
         />
-        <input type="submit" class="fadeIn fourth" @click="loginAccount" value="Se connecter"/>
+        <button type="submit" class="fadeIn fourth" @click="loginAccount"> Se connecter </button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-import useVuelidate from '@vuelidate/core'
-import { required, email, minLength } from '@vuelidate/validators'
 import axios from "axios";
 export default {
   name: "register",
@@ -48,25 +46,8 @@ export default {
       err: "",
     };
   },
-   setup () {
-    return { v$: useVuelidate() }
-  },
- validations() {
-    return {
-      form: {
-        email: {
-           required, email 
-        },
-        password: {
-            required, 
-            min: minLength(8)
-        },
-      },
-    }
-  },
   methods: {
     loginAccount: function () {
-      const self = this
       if (this.email !== null || this.password !== null) {
         axios
           .post("http://localhost:3000/login", this.dataConnect)
@@ -74,9 +55,9 @@ export default {
             console.log(response);
             const userchoice = response.data.result.iduser;
             const userToken = response.data.token;
+            location.replace("http://localhost:8080/comment")
             localStorage.setItem("userChoice", userchoice);
             localStorage.setItem("userToken", userToken);
-            self.$router.push("/comment");
             console.log("réussis");
           })
           .catch((error) => {

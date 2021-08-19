@@ -13,6 +13,12 @@
 <style scoped>
 .footer {
   background-color: #343a40;
+  position: fixed;
+  height: 50px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin-bottom: 0px;
 }
 .footers {
   color: whitesmoke;

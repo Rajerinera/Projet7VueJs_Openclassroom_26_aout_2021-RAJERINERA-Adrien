@@ -1,17 +1,11 @@
 <template>
   <div class="media">
       <h1>L'actualité du reséau! </h1>  
-    <a class="pull-left" href="#"
-      ><img
-        class="media-object"
-        src="https://bootdey.com/img/Content/avatar/avatar1.png"
-        alt=""
-    /></a>
     <div class="media-body" v-for="comment in comments" :key="comment.idcom">
       <h4 class="media-heading">{{comment.title}}</h4>
       <p>{{comment.content}}</p>
       <img :src="comment.image">
-
+      <div v-bind:name="user.name"></div>
       <ul class="list-unstyled list-inline media-detail pull-right">
         <li class=""><router-link class="nav-link" to="/modifComment"><b>Modifier</b></router-link></li>
         <li class=""><button v-if="idcom == comment.idcom || idcom == 9" @click="deleteCom(comment)">Supprimer</button></li>
@@ -22,7 +16,7 @@
 <script>
 import axios from "axios";
 let iduser1 = localStorage.getItem("userChoice");
-//import {mapState} from "vuex";
+import {mapState} from "vuex";
 export default {
   name: "comment",
   data() {
@@ -37,12 +31,15 @@ export default {
   //computed:{
   //...mapState(['comment']),
   //},
+  computed: {
+    ...mapState(['user']),  
+  },
   mounted() {
     this.comments = [];
     axios
       .get("http://localhost:3000/api/comments", {
         headers: {
-          Authorization: "Bearer" + localStorage.getItem("userToken"),
+          'Authorization':"Bearer " + localStorage.getItem("userToken"),
         },
       })
       .then((response) => {
@@ -51,7 +48,8 @@ export default {
       })
       .catch((error) => {
         console.log(error);
-      });
+      }),
+       this.$store.dispatch('getInfo')
   },
   methods:{
     async deleteCom(comment) {
@@ -77,11 +75,13 @@ export default {
 </script>
 <style scoped>
 img{
-  width: 50%;
+  width: 70%;
   height: 50%;
-  align-items: center;
   margin-left: auto;
   margin-right: auto;
+  border: 2px solid black;
+  object-fit: cover;
+  background-color: blanchedalmond;
 }
 h1{
   margin-left: auto;
@@ -100,10 +100,12 @@ h1{
   justify-content: space-between;
 }
 .media-body{
+ display: flex;
+ flex-direction: column;
  text-align: center;
  margin-right: auto;
  margin-left: auto;
- width: 80%;
+ width: 90%;
  padding: 15px;
 }
 .content-item {

@@ -6,7 +6,9 @@ export default new Vuex.Store({
   state: {
     user: {
       iduser: "NC",
+      first_name: "NC",
       name: "NC",
+      job:"NC",
       email: "NC",
       password: "NC"
     },
@@ -19,9 +21,11 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    userInfo(state, [iduser, name, email, password]) {
+    userInfo(state, [iduser,first_name, name, job, email, password]) {
         state.user.iduser = iduser,
+        state.user.first_name = first_name,
         state.user.name = name,
+        state.user.job = job
         state.user.email = email,
         state.user.password = password
     },
@@ -39,12 +43,12 @@ export default new Vuex.Store({
       axios
         .get('http://localhost:3000/' + id, {
           headers: {
-            Authorization: "Bearer" + localStorage.getItem("userToken"),
+            'Authorization':"Bearer " + localStorage.getItem("userToken"),
           },
         })
         .then((response) => {
           console.log(response);
-          valeur.commit('userInfo', [response.data[0].iduser, response.data[0].name, response.data[0].email, response.data[0].password])
+          valeur.commit('userInfo', [response.data[0].iduser,response.data[0].first_name, response.data[0].name, response.data[0].job, response.data[0].email, response.data[0].password])
           console.log(valeur);
         })
         .catch((error) => {
@@ -56,7 +60,7 @@ export default new Vuex.Store({
       axios
         .get('http://localhost:3000/api/comment/' + commentId, {
           headers: {
-            Authorization: "Bearer" + localStorage.getItem("userToken"),
+            'Authorization':"Bearer " + localStorage.getItem("userToken"),
           },
         })
         .then((response) => {

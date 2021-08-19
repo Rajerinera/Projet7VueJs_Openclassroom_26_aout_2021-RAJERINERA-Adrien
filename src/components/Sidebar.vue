@@ -25,6 +25,10 @@ export default {
 </script>
 
 <style scoped>
+    .sidebar{
+      background-color: #343a40;
+
+    }
     img{
       width: 80%;
     }

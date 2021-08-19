@@ -12,12 +12,28 @@
       <!-- Login Form -->
       <form>
         <input
+          v-model="dataLog.first_name"
+          type="text"
+          id="firstname"
+          lass="fadeIn second"
+          name="firstname"
+          placeholder="firstname"
+        />
+        <input
           v-model="dataLog.name"
           type="text"
           id="name"
           lass="fadeIn second"
-          name="login"
+          name="name"
           placeholder="name"
+        />
+        <input
+          v-model="dataLog.job"
+          type="text"
+          id="login"
+          class="fadeIn second"
+          name="job"
+          placeholder="Votre metier"
         />
         <input
           v-model="dataLog.email"
@@ -48,7 +64,9 @@ export default {
   data() {
     return {
       dataLog: {
+        first_name:"",
         name: "",
+        job:"",
         email: "",
         password: "",
       },

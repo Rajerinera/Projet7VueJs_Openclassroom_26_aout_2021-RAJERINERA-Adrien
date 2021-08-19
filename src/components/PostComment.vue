@@ -10,8 +10,8 @@
             <div class="col-sm-3 col-lg-2 hidden-xs">
               <img
                 class="img-responsive"
-                src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                alt=""
+                src="../assets/image/icon.png"
+                alt="logo"
               />
             </div>
             <div class="form-group col-xs-12 col-sm-9 col-lg-10 commentaire">
@@ -48,7 +48,7 @@
           @click="commentUse"
           class="bg-light btn btn-outline-primary pull-right mb-4 btn-lg"
         >
-          Publier
+          Publier !
         </button>
       </form>
     </div>
@@ -57,7 +57,6 @@
 
 <script>
 let iduser1 = localStorage.getItem("userChoice");
-console.log(iduser1);
 import axios from "axios";
 export default {
   name: "postCom",
@@ -97,7 +96,7 @@ export default {
         axios
           .post("http://localhost:3000/comment/", fd, {
             headers: {
-              Authorization: "Bearer" + localStorage.getItem("userToken"),
+               Authorization:"Bearer " + localStorage.getItem("userToken"),
             },
           })
           .then((response) => {

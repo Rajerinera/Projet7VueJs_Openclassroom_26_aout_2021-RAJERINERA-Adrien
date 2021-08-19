@@ -55,7 +55,6 @@
 </template>
 <script>
 let iduser1 = localStorage.getItem("userChoice");
-console.log(iduser1)
 import { mapState } from "vuex";
 import axios from "axios";
 export default {
@@ -92,6 +91,7 @@ export default {
       }else{
         fd.append("title", this.title);
         fd.append("content", this.content)
+         fd.append("image", this.image, this.image.filename)
       }
       axios
       .patch(`http://localhost:3000/api/comment/${this.idtest}` ,fd,{
