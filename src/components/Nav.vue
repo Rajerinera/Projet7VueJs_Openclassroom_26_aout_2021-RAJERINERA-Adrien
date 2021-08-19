@@ -15,7 +15,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="col-md-4 ml-auto" id="collapsibleNavbar">
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav ml-auto nav">
         <li class="nav-item">
           <router-link class="nav-link" to="/comment"><b>Accueil</b></router-link>
         </li>
@@ -25,8 +25,11 @@
         <li class="nav-item">
           <router-link class="nav-link" to="/contact"><b>Contact</b></router-link>
         </li>
-        <li @click="disconnected" class="nav-item">
-          <a class="nav-link" href="#"><b>Deconnexion</b></a>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/modifComment"><b>Vos commentaires</b></router-link>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link deconnecté"  @click="disconnected"><b>Deconnexion</b></a>
         </li>
       </ul>
     </div>
@@ -42,16 +45,29 @@ export default {
     },
     methods:{
       disconnected(){
+        window.alert("Vous êtes déconnecté")
         localStorage.removeItem("userChoice");
         localStorage.removeItem("userToken");
+        localStorage.removeItem("userFirstname")
         this.$router.push("/register");
       }
     }
 }
 </script>
 <style scoped>
+.nav{
+  display: flex;
+  margin-right: 40px;
+  width: 70%;
+}
 #logo_custom{
     width: 150px;
+}
+.deconnecté{
+  cursor: pointer;
+}
+a.nav-link:hover{
+  background-color: black;
 }
 .custom-navbar{background-color:#343a40;}
 .nav-link{color: whitesmoke}

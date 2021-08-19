@@ -1,5 +1,7 @@
 <template>
   <div>
+    <h1> Bienvenue sur notre réseau social Groupomania </h1>
+    <p class ="bienvenue"> Vous êtes connecté en tant que <b>{{user.first_name}}</b></p>
     <button type="button" class="btn btn-primary" v-on:click="show = !show">
       Publier un commentaire
     </button>
@@ -57,6 +59,7 @@
 
 <script>
 let iduser1 = localStorage.getItem("userChoice");
+import {mapState} from "vuex";
 import axios from "axios";
 export default {
   name: "postCom",
@@ -70,7 +73,12 @@ export default {
       selectedFile: null,
       err: "",
       show: true,
+      firstname: ""
     };
+  },
+   computed: {
+    ...mapState(['user']),
+      
   },
   methods: {
     upload: function () {
@@ -119,6 +127,17 @@ export default {
 </script>
 
 <style scoped>
+h1{
+  font-size: 20px;
+}
+.bienvenue{
+  width: 25%;
+  color: whitesmoke;
+  background-color:#343a40;;
+  font-size: 15px;
+  padding: 5px;
+  border: 1px solid white;
+}
 #form {
   width: 80%;
   display: flex;

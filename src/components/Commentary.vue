@@ -5,13 +5,8 @@
       <h2 class="media-heading">{{ comment.title }}</h2>
       <p>{{ comment.content }}</p>
       <img :src="comment.image" />
-      <div v-bind:name="user.name"></div>
+      <p v-if="comment.idcom == user.iduser"> Publiée par : {{user.name}}</p>
       <ul class="list-unstyled list-inline media-detail pull-right">
-        <li>
-          <router-link class="nav-link btn btn-info" v-if="idcom == comment.idcom || idcom == 9" to="/modifComment"
-            ><b>Modifier</b></router-link
-          >
-        </li>
         <li>
           <button class="btn btn-danger"
             v-if="idcom == comment.idcom || idcom == 9"
@@ -37,6 +32,7 @@ export default {
       image: "",
       idcom: iduser1,
       comments: [],
+      
     };
   },
   //computed:{
@@ -97,9 +93,10 @@ img {
 h1 {
   margin-left: auto;
   margin-right: auto;
+  padding-top: 20px;
   padding-bottom: 50px;
   width: 100%;
-  border-bottom: 1px solid black;
+  border-top: 1px solid black;
 }
 .media {
   width: 100%;
@@ -111,6 +108,7 @@ h1 {
   justify-content: space-between;
   padding-bottom: 20px;
   background-image: url("../assets/image/wallpaper.webp");
+  background-repeat: round
 }
 .media-body {
   display: flex;

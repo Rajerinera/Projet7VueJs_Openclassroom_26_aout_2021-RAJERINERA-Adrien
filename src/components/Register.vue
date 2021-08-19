@@ -27,7 +27,7 @@
           name="login"
           placeholder="password"
         />
-        <button type="submit" class="fadeIn fourth" @click="loginAccount"> Se connecter </button>
+        <input type="submit" class="fadeIn fourth" placeholder="Se connecter" @click="loginAccount"/>
       </form>
     </div>
   </div>
@@ -54,10 +54,12 @@ export default {
           .then((response) => {
             console.log(response);
             const userchoice = response.data.result.iduser;
+            const userFirstname = response.data.result.first_name;
             const userToken = response.data.token;
             location.replace("http://localhost:8080/comment");
             localStorage.setItem("userChoice", userchoice);
             localStorage.setItem("userToken", userToken);
+            sessionStorage.setItem("userFirstname", userFirstname);
             console.log("réussis");
           })
           .catch((error) => {
