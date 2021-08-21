@@ -27,7 +27,9 @@
           name="login"
           placeholder="password"
         />
+        <router-link to="/comment">
         <input type="submit" class="fadeIn fourth" placeholder="Se connecter" @click="loginAccount"/>
+        </router-link>
       </form>
     </div>
   </div>

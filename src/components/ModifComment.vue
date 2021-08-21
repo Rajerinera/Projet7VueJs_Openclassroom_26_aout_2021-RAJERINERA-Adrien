@@ -1,17 +1,20 @@
 <template>
-<form>
+
+<div>
+<h4 class="pb-4 border-bottom">Modifier votre commentaire</h4>
+<form v-for="(comment, i) in comments" :key="comment.idcom">
   <div class="wrapper bg-white mt-sm-5">
-    <h4 class="pb-4 border-bottom">Modifier votre commentaire</h4>
     <div class="py-2">
       <div class="row py-2">
         <div class="col-md-6">
           <p>Title:{{ comment.title }}</p>
+          <p> {{comments[i].idcom}} </p>
           <textarea
             type="text"
             class="bg-light form-control"
-            placeholder="Le titre"
+            placeholder=" "
             rows="2"
-            v-model="title"
+            v-model="comments[i].title"
           ></textarea>
         </div>
       </div>
@@ -21,9 +24,9 @@
           <textarea
             type="text"
             class="bg-light form-control"
-            placeholder="Votre commentaire"
+            placeholder=" "
             rows="4"
-            v-model="content"
+            v-model="comments[i].content"
           ></textarea>
         </div>
       </div>
@@ -34,7 +37,7 @@
             type="file"
             ref="image"
             class="form-control"
-            @change="upload()"
+            @change="upload"
           />
         </div>
       </div>
@@ -52,10 +55,11 @@
     </div>
   </div>
 </form>
+</div>
 </template>
 <script>
 let iduser1 = localStorage.getItem("userChoice");
-import { mapState } from "vuex";
+//import { mapState } from "vuex";
 import axios from "axios";
 export default {
   name: "postCom",
@@ -65,24 +69,39 @@ export default {
       content: "",
       image: "",
       idcomment: "",
-      idcom: iduser1
-    };
-  },
-  computed: {
-    ...mapState(["comment"]),
+      idcom: iduser1,
+      comments:[],
+    }
+    
   },
   mounted() {
-    this.$store.dispatch("commentOne");
+    //this.$store.dispatch("commentOne");
+      let commentId = localStorage.getItem("userChoice")
+      this.comments = [];
+      axios
+        .get('http://localhost:3000/api/comment/' + commentId, {
+          headers: {
+            'Authorization':"Bearer " + localStorage.getItem("userToken"),
+          },
+        })
+        .then((response) => {
+          console.log(response.data)
+          this.comments = response.data          
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   },
   methods: {
-    upload: function() {
-      this.image = this.$refs.image.files[0];
-      console.log(this.image);
+    upload: function(event) {
+      console.log(event)
+          this.image = event.target.files[0]
+          this.fileName = event.target.files[0].name
+          console.log(this.image)
     },
     updateCom: function(comment){
       console.log(comment.idcomment)
       this.idtest = comment.idcomment;
-      const self = this
       const fd = new FormData();
       if(this.image != null || "" ){
         fd.append("title", this.title);
@@ -91,19 +110,20 @@ export default {
       }else{
         fd.append("title", this.title);
         fd.append("content", this.content)
-         fd.append("image", this.image, this.image.filename)
+        fd.append("image", this.image, this.image.filename)
       }
       axios
       .patch(`http://localhost:3000/api/comment/${this.idtest}` ,fd,{
 
         headers:{
-           Authorization: "Bearer" + localStorage.getItem("userToken"),
+           Authorization: "Bearer " + localStorage.getItem("userToken"),
         }
       })
       .then((response)=>{
         console.log(fd)
         console.log(response)
-        self.$router.push("/comment")
+        console.log("update fait")
+        //self.$router.push("/comment")
       })
       .catch((error) => console.log(error))
     }
