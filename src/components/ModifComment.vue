@@ -1,5 +1,4 @@
 <template>
-
 <div>
 <h4 class="pb-4 border-bottom">Modifier votre commentaire</h4>
 <form v-for="(comment, i) in comments" :key="comment.idcom">
@@ -14,7 +13,7 @@
             class="bg-light form-control"
             placeholder=" "
             rows="2"
-            v-model="comments[i].title"
+            v-model="title"
           ></textarea>
         </div>
       </div>
@@ -26,7 +25,7 @@
             class="bg-light form-control"
             placeholder=" "
             rows="4"
-            v-model="comments[i].content"
+            v-model="content"
           ></textarea>
         </div>
       </div>
@@ -65,12 +64,13 @@ export default {
   name: "postCom",
   data() {
     return {
-      title: "",
+      title:"",
       content: "",
       image: "",
       idcomment: "",
       idcom: iduser1,
       comments:[],
+      comment:[],
     }
     
   },
@@ -101,11 +101,12 @@ export default {
     },
     updateCom: function(comment){
       console.log(comment.idcomment)
+      const test = "test"
       this.idtest = comment.idcomment;
       const fd = new FormData();
-      if(this.image != null || "" ){
+      if(test == true){
         fd.append("title", this.title);
-        fd.append("content", this.content);
+        fd.append("content",this.content);
         fd.append("image", this.image, this.image.filename);
       }else{
         fd.append("title", this.title);
@@ -113,7 +114,7 @@ export default {
         fd.append("image", this.image, this.image.filename)
       }
       axios
-      .patch(`http://localhost:3000/api/comment/${this.idtest}` ,fd,{
+      .put(`http://localhost:3000/api/comment/${this.idtest}` ,fd,{
 
         headers:{
            Authorization: "Bearer " + localStorage.getItem("userToken"),

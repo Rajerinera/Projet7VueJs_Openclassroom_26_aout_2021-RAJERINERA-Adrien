@@ -66,7 +66,7 @@ export default {
         await axios
           .delete("http://localhost:3000/api/comment/" + comment.idcomment, {
             headers: {
-              Authorization: "Bearer" + localStorage.getItem("userToken"),
+              'Authorization':"Bearer " + localStorage.getItem("userToken"),
             },
           })
           .then((response) => {
