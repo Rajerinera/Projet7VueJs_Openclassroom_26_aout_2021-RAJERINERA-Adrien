@@ -17,19 +17,29 @@
     <div class="col-md-4 ml-auto" id="collapsibleNavbar">
       <ul class="navbar-nav ml-auto nav">
         <li class="nav-item">
-          <router-link class="nav-link" to="/comment"><b>Accueil</b></router-link>
+          <router-link class="nav-link" to="/comment"
+            ><b>Accueil</b></router-link
+          >
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/profile"><b>Profile</b></router-link>
+          <router-link class="nav-link" to="/profile"
+            ><b>Profile</b></router-link
+          >
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/contact"><b>Contact</b></router-link>
+          <router-link class="nav-link" to="/contact"
+            ><b>Contact</b></router-link
+          >
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/modifComment"><b>Vos commentaires</b></router-link>
+          <router-link class="nav-link" to="/modifComment"
+            ><b>Vos commentaires</b></router-link
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link deconnecté"  @click="disconnected"><b>Deconnexion</b></a>
+          <a class="nav-link deconnecté" @click="disconnected"
+            ><b>Deconnexion</b></a
+          >
         </li>
       </ul>
     </div>
@@ -37,39 +47,44 @@
 </template>
 <script>
 export default {
-    data: function() {
-        return{
-     
-        }
-        
+  data: function () {
+    return {};
+  },
+  methods: {
+    disconnected() {
+      window.alert("Vous êtes déconnecté");
+      localStorage.removeItem("userChoice");
+      localStorage.removeItem("userToken");
+      localStorage.removeItem("userFirstname");
+      this.$router.push("/register");
     },
-    methods:{
-      disconnected(){
-        window.alert("Vous êtes déconnecté")
-        localStorage.removeItem("userChoice");
-        localStorage.removeItem("userToken");
-        localStorage.removeItem("userFirstname")
-        this.$router.push("/register");
-      }
-    }
-}
+  },
+};
 </script>
 <style scoped>
-.nav{
+.nav {
   display: flex;
   margin-right: 40px;
   width: 70%;
 }
-#logo_custom{
-    width: 150px;
+#logo_custom {
+  width: 150px;
 }
-.deconnecté{
+.deconnecté {
   cursor: pointer;
 }
-a.nav-link:hover{
+a.nav-link:hover {
   background-color: black;
 }
-.custom-navbar{background-color:#343a40;}
-.nav-link{color: whitesmoke}
-@media only screen and (max-width: 760px) { #logo_custom{width: 40%;}}
+.custom-navbar {
+  background-color: #343a40;
+}
+.nav-link {
+  color: whitesmoke;
+}
+@media only screen and (max-width: 760px) {
+  #logo_custom {
+    width: 40%;
+  }
+}
 </style>

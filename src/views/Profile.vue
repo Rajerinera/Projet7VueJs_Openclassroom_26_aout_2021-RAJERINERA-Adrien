@@ -1,15 +1,15 @@
 <template>
   <div>
-    <Nav/>
-    <ProfilUser/>
-    <Footer/>
+    <Nav />
+    <ProfilUser />
+    <Footer />
   </div>
 </template>
 
 <script>
 import Nav from "../components/Nav.vue";
 import ProfilUser from "../components/ProfilUser.vue";
-import Footer from "../components/Footer.vue"
+import Footer from "../components/Footer.vue";
 
 export default {
   name: "contact",

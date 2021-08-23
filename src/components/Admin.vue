@@ -1,5 +1,5 @@
 <template>
-<div class="col-md-12">
+  <div class="col-md-12">
     <button class="btnModere my-3 btn btn-primary" @click="afficherMasquer()">
       Moderer commentaires
     </button>
@@ -7,10 +7,28 @@
       <div
         v-for="(comment, id) in comments.slice().reverse()"
         v-bind:key="id"
-        class="d-flex mb-2 align-items-center justify-content-center align-content-center"
+        class="
+          d-flex
+          mb-2
+          align-items-center
+          justify-content-center
+          align-content-center
+        "
       >
         <div
-          class="col-md-8 mb-3 d-inline-flex flex-column align-items-start pl-3 minHeight bordureRond bodurePost border border-primary backPrimaire"
+          class="
+            col-md-8
+            mb-3
+            d-inline-flex
+            flex-column
+            align-items-start
+            pl-3
+            minHeight
+            bordureRond
+            bodurePost
+            border border-primary
+            backPrimaire
+          "
           min-heigth="50px"
         >
           <p>
@@ -26,7 +44,15 @@
           @click="deleteComment(comment)"
           size="sm"
           variant="danger"
-          class="d-flex visible justify-content-center bg-light ml-2 minHeight25 minwidth25"
+          class="
+            d-flex
+            visible
+            justify-content-center
+            bg-light
+            ml-2
+            minHeight25
+            minwidth25
+          "
         >
           <b-icon
             icon="trash-fill"

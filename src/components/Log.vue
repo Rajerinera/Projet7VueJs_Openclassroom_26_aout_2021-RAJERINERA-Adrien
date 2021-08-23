@@ -109,27 +109,27 @@ export default {
   name: "Log",
   setup() {
     const state = reactive({
-        first_name: "",
-        name: "",
-        job: "",
-        email: "",
-        password: {
-          pass: "",
-          confirm: "",
-        },
+      first_name: "",
+      name: "",
+      job: "",
+      email: "",
+      password: {
+        pass: "",
+        confirm: "",
+      },
       error: "",
       err: "",
     });
     const rules = computed(() => {
       return {
-          first_name: { required },
-          name: { required },
-          job: { required },
-          email: { required, email },
-          password: {
-            pass: { required, minLength: minLength(8) },
-            confirm: { required, sameAs: sameAs(state.password.pass) },
-          },
+        first_name: { required },
+        name: { required },
+        job: { required },
+        email: { required, email },
+        password: {
+          pass: { required, minLength: minLength(8) },
+          confirm: { required, sameAs: sameAs(state.password.pass) },
+        },
       };
     });
     const v$ = useValidate(rules, state);
@@ -142,16 +142,16 @@ export default {
     logaccount: function (e) {
       e.preventDefault(e);
       this.v$.$validate();
-      console.log(this.v$.$validate())
+      console.log(this.v$.$validate());
       if (!this.v$.$error) {
         axios
-          .post("http://localhost:3000/signup/",{
+          .post("http://localhost:3000/signup/", {
             first_name: this.state.first_name,
             name: this.state.name,
             job: this.state.job,
             email: this.state.email,
             password: this.state.password.pass,
-          })            
+          })
           .then((response) => {
             console.log(response);
             location.replace("http://localhost:8080/register");
@@ -446,4 +446,3 @@ input[type="text"] [type="password"]:placeholder {
   width: 40%;
 }
 </style>
-

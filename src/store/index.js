@@ -1,6 +1,5 @@
-
 import Vuex from "vuex";
-import axios from "axios"
+import axios from "axios";
 
 export default new Vuex.Store({
   state: {
@@ -8,26 +7,25 @@ export default new Vuex.Store({
       iduser: "NC",
       first_name: "NC",
       name: "NC",
-      job:"NC",
+      job: "NC",
       email: "NC",
-      password: "NC"
+      password: "NC",
     },
     comment: {
       idcomment: "NC",
       idcom: "NC",
       title: "NC",
       content: "NC",
-      image:"NC",
+      image: "NC",
     },
   },
   mutations: {
-    userInfo(state, [iduser,first_name, name, job, email, password]) {
-        state.user.iduser = iduser,
-        state.user.first_name = first_name,
-        state.user.name = name,
-        state.user.job = job
-        state.user.email = email,
-        state.user.password = password
+    userInfo(state, [iduser, first_name, name, job, email, password]) {
+      (state.user.iduser = iduser),
+        (state.user.first_name = first_name),
+        (state.user.name = name),
+        (state.user.job = job);
+      (state.user.email = email), (state.user.password = password);
     },
     /*commentInfo(state, [idcomment, idcom, title, content, image]) {
         state.comment.idcomment = idcomment,
@@ -39,16 +37,23 @@ export default new Vuex.Store({
   },
   actions: {
     getInfo(valeur) {
-      const id = localStorage.getItem("userChoice")
+      const id = localStorage.getItem("userChoice");
       axios
-        .get('http://localhost:3000/' + id, {
+        .get("http://localhost:3000/" + id, {
           headers: {
-            'Authorization':"Bearer " + localStorage.getItem("userToken"),
+            Authorization: "Bearer " + localStorage.getItem("userToken"),
           },
         })
         .then((response) => {
           console.log(response);
-          valeur.commit('userInfo', [response.data[0].iduser,response.data[0].first_name, response.data[0].name, response.data[0].job, response.data[0].email, response.data[0].password])
+          valeur.commit("userInfo", [
+            response.data[0].iduser,
+            response.data[0].first_name,
+            response.data[0].name,
+            response.data[0].job,
+            response.data[0].email,
+            response.data[0].password,
+          ]);
           console.log(valeur);
         })
         .catch((error) => {
@@ -91,7 +96,5 @@ export default new Vuex.Store({
           console.log(error);
         });
     }*/
-  }
-  
-})
-
+  },
+});

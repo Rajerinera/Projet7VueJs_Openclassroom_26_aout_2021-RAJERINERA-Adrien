@@ -1,8 +1,16 @@
 <template>
   <div>
-    <h1> Bienvenue sur notre réseau social Groupomania </h1>
-    <p class ="bienvenue"> Vous êtes connecté en tant que <b>{{user.first_name}}</b></p>
-    <button type="button" class="btn btn-primary" v-on:click="show = !show">
+    <h1>Bienvenue sur notre réseau social Groupomania</h1>
+    <p class="bienvenue">
+      Vous êtes connecté en tant que <b>{{ user.first_name }}</b>
+    </p>
+    <button
+      type="button"
+      class="btn btn-primary publi"
+      v-on:click="show = !show"
+      v-if="show"
+      v-bind:class="buttonPubli"
+    >
       Publier un commentaire
     </button>
     <div class="col-sm-8" v-if="!show">
@@ -46,7 +54,7 @@
         <button
           type="submit"
           @click="commentUse"
-          class="bg-light btn btn-outline-primary pull-right mb-4 btn-lg"
+          class="bg-light btn btn-outline-primary pull-right mb-4 btn-lg clic"
         >
           Publier !
         </button>
@@ -57,7 +65,7 @@
 
 <script>
 let iduser1 = localStorage.getItem("userChoice");
-import {mapState} from "vuex";
+import { mapState } from "vuex";
 import axios from "axios";
 export default {
   name: "postCom",
@@ -72,12 +80,11 @@ export default {
       author: "",
       err: "",
       show: true,
-      firstname: ""
+      firstname: "",
     };
   },
-   computed: {
-    ...mapState(['user']),
-      
+  computed: {
+    ...mapState(["user"]),
   },
   methods: {
     upload: function () {
@@ -90,26 +97,25 @@ export default {
         fd.append("title", this.title);
         fd.append("content", this.content);
         fd.append("image", this.image, this.image.filename);
-        fd.append("author", this.$store.state.user.first_name)
+        fd.append("author", this.$store.state.user.first_name);
         fd.append("idcom", this.idcom);
       } else {
         fd.append("title", this.title);
         fd.append("content", this.content);
-        fd.append("image", this.image, this.image.filename)
-        fd.append("author", this.$store.state.user.first_name)
+        fd.append("image", this.image, this.image.filename);
+        fd.append("author", this.$store.state.user.first_name);
         fd.append("idcom", this.idcom);
       }
       console.log(fd);
-      let test = "test"
+      let test = "test";
       if (test) {
         axios
           .post("http://localhost:3000/comment/", fd, {
             headers: {
-               Authorization:"Bearer " + localStorage.getItem("userToken"),
+              Authorization: "Bearer " + localStorage.getItem("userToken"),
             },
           })
           .then((response) => {
-
             console.log(response.data);
             console.log(response);
             console.log("commentaire envoyé à bdd");
@@ -128,16 +134,29 @@ export default {
 </script>
 
 <style scoped>
-h1{
-  font-size: 20px;
+h1 {
+  font-size: 30px;
 }
-.bienvenue{
-  width: 25%;
+.publi {
+  margin-top: 20px;
+}
+.clic {
+  border: 1px solid blue;
+  color: blue;
+}
+.buttonPubli {
+  display: none;
+}
+.bienvenue {
+  width: 40%;
   color: whitesmoke;
-  background-color:#343a40;;
+  background-color: #343a40;
   font-size: 15px;
   padding: 5px;
   border: 1px solid white;
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
 }
 #form {
   width: 80%;
@@ -161,4 +180,5 @@ h1{
   width: 250px;
   height: 50px;
 }
-</style>>
+</style>
+>

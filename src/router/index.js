@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Dashboard from "../views/Dashboard.vue";
-import Comment from "../views/Comment.vue"
-import Contact from "../views/Contact.vue"
-import Profile from "../views/Profile.vue"
-import ModifCommentary from "../views/ModifCommentary.vue"
+import Comment from "../views/Comment.vue";
+import Contact from "../views/Contact.vue";
+import Profile from "../views/Profile.vue";
+import ModifCommentary from "../views/ModifCommentary.vue";
 const routes = [
   {
     path: "/",
@@ -12,27 +12,27 @@ const routes = [
       {
         path: "",
         name: "Presentation",
-        component: () => import ("../views/Presentation.vue")
+        component: () => import("../views/Presentation.vue"),
       },
       {
         path: "/login",
         name: "Login",
-        component: () => import ("../views/Login.vue")
+        component: () => import("../views/Login.vue"),
       },
       {
         path: "/register",
         name: "Register",
-        component: () => import ("../views/Register.vue")
+        component: () => import("../views/Register.vue"),
       },
       {
         path: "/about",
         name: "About",
-        component: () => import ("../views/About.vue")
+        component: () => import("../views/About.vue"),
       },
-    ]
+    ],
   },
   {
-    path: "/comment" ,
+    path: "/comment",
     name: "Comment",
     component: Comment,
   },
@@ -42,16 +42,15 @@ const routes = [
     component: Contact,
   },
   {
-    path:"/profile",
+    path: "/profile",
     name: "Profile",
     component: Profile,
   },
   {
-    path:"/modifComment",
+    path: "/modifComment",
     name: "ModifComment",
     component: ModifCommentary,
-  }
-  
+  },
 ];
 
 const router = createRouter({

@@ -4,12 +4,18 @@
     <div class="media-body" v-for="comment in comments" :key="comment.idcom">
       <h2 class="media-heading">{{ comment.title }}</h2>
       <p>{{ comment.content }}</p>
-      <img :src="comment.image" />
-      <div> Publiée par <b>{{comment.author}}</b> </div>
+      <div>
+        <img v-if="comment.image !== null" :src="comment.image" />
+        <img v-else src="../assets/image/icon.png" />
+      </div>
+      <div>
+        Publiée par <b>{{ comment.author }}</b>
+      </div>
       <ul class="list-unstyled list-inline media-detail pull-right">
         <li>
-          <button class="btn btn-danger"
-            v-if="idcom == comment.idcom || idcom == 16"
+          <button
+            class="btn btn-danger"
+            v-if="idcom == comment.idcom || idcom == 9"
             @click="deleteCom(comment)"
           >
             Supprimer
@@ -32,7 +38,6 @@ export default {
       image: "",
       idcom: iduser1,
       comments: [],
-      
     };
   },
   //computed:{
@@ -66,7 +71,7 @@ export default {
         await axios
           .delete("http://localhost:3000/api/comment/" + comment.idcomment, {
             headers: {
-              'Authorization':"Bearer " + localStorage.getItem("userToken"),
+              Authorization: "Bearer " + localStorage.getItem("userToken"),
             },
           })
           .then((response) => {
@@ -108,7 +113,7 @@ h1 {
   justify-content: space-between;
   padding-bottom: 20px;
   background-image: url("../assets/image/wallpaper.webp");
-  background-repeat: round
+  background-repeat: round;
 }
 .media-body {
   display: flex;
@@ -222,7 +227,7 @@ h1 {
 #comments .media-detail {
   margin: 0px;
 }
-.media-detail{
+.media-detail {
   margin: 12px;
 }
 #comments .media-detail li {

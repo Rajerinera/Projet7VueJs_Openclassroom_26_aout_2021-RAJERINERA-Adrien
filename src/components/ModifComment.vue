@@ -1,60 +1,60 @@
 <template>
-<div>
-<h4 class="pb-4 border-bottom">Modifier votre commentaire</h4>
-<form v-for="(comment, i) in comments.slice().reverse()" :key="comment.idcom">
-  <div class="wrapper bg-white mt-sm-5">
-    <div class="py-2">
-      <div class="row py-2">
-        <div class="col-md-6">
-          <p>Title:{{ comment.title }}</p>
-          <p> {{comments[i].idcom}} </p>
-          <textarea
-            type="text"
-            class="bg-light form-control"
-            placeholder=" "
-            rows="2"
-            v-model="title"
-          ></textarea>
-        </div>
-      </div>
-      <div class="row py-2">
-        <div class="col-md-6">
-          <label>Content: {{ comment.content }} </label>
-          <textarea
-            type="text"
-            class="bg-light form-control"
-            placeholder=" "
-            rows="4"
-            v-model="content"
-          ></textarea>
-        </div>
-      </div>
-      <div class="d-flex align-items-start py-3 border-bottom">
-        <img :src="comment.image" class="img" alt="image selectionné" />
-        <div class="pl-sm-4 pl-2" id="img-section">
-          <input
-            type="file"
-            ref="image"
-            class="form-control"
-            @change="upload"
-          />
-        </div>
-      </div>
+  <div>
+    <h4 class="pb-4 border-bottom">Modifier votre commentaire</h4>
+    <form v-for="comment in comments.slice().reverse()" :key="comment.idcom">
+      <div class="wrapper bg-white mt-sm-5">
+        <div class="py-2">
+          <div class="row py-2">
+            <div class="col-md-6">
+              <p>TITRE :</p>
+              <p>"{{ comment.title }}"</p>
+              <textarea
+                type="text"
+                class="bg-light form-control"
+                placeholder=" "
+                rows="2"
+                v-model="title"
+              ></textarea>
+            </div>
+          </div>
+          <div class="row py-2">
+            <div class="col-md-6">
+              <p>CONTENT :</p>
+              <p>"{{ comment.content }}"</p>
+              <textarea
+                type="text"
+                class="bg-light form-control"
+                placeholder=" "
+                rows="4"
+                v-model="content"
+              ></textarea>
+            </div>
+          </div>
+          <div class="d-flex align-items-start py-3 border-bottom">
+            <img :src="comment.image" class="img" alt="image selectionné" />
+            <div class="pl-sm-4 pl-2" id="img-section">
+              <input
+                type="file"
+                ref="image"
+                class="form-control"
+                @change="upload"
+              />
+            </div>
+          </div>
 
-      <div class="py-3 pb-4 border-bottom">
-        <button
-          class="btn btn-primary mr-3"
-          type="submit"
-          @click="updateCom(comment)"
-        >
-          Save Changes
-        </button>
-        <button class="btn border button">Cancel</button>
+          <div class="py-3 pb-4 border-bottom">
+            <button
+              class="btn btn-primary mr-3"
+              type="submit"
+              @click="updateCom(comment)"
+            >
+              Modifier
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
-</form>
-</div>
 </template>
 <script>
 let iduser1 = localStorage.getItem("userChoice");
@@ -64,70 +64,68 @@ export default {
   name: "postCom",
   data() {
     return {
-      title:"",
+      title: "",
       content: "",
       image: "",
       idcomment: "",
       idcom: iduser1,
-      comments:[],
-      comment:[],
-    }
-    
+      comments: [],
+      comment: [],
+    };
   },
   mounted() {
     //this.$store.dispatch("commentOne");
-      let commentId = localStorage.getItem("userChoice")
-      this.comments = [];
+    let commentId = localStorage.getItem("userChoice");
+    this.comments = [];
+    axios
+      .get("http://localhost:3000/api/comment/" + commentId, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("userToken"),
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        this.comments = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  methods: {
+    upload: function (event) {
+      console.log(event);
+      this.image = event.target.files[0];
+      this.fileName = event.target.files[0].name;
+      console.log(this.image);
+    },
+    updateCom: function (comment) {
+      console.log(comment.idcomment);
+      const test = "test";
+      this.idtest = comment.idcomment;
+      const fd = new FormData();
+      if (test == true) {
+        fd.append("title", this.title);
+        fd.append("content", this.content);
+        fd.append("image", this.image, this.image.filename);
+      } else {
+        fd.append("title", this.title);
+        fd.append("content", this.content);
+        fd.append("image", this.image, this.image.filename);
+      }
       axios
-        .get('http://localhost:3000/api/comment/' + commentId, {
+        .put(`http://localhost:3000/api/comment/${this.idtest}`, fd, {
           headers: {
-            'Authorization':"Bearer " + localStorage.getItem("userToken"),
+            Authorization: "Bearer " + localStorage.getItem("userToken"),
           },
         })
         .then((response) => {
-          console.log(response.data)
-          this.comments = response.data          
+          console.log(fd);
+          console.log(response);
+          console.log("update fait");
+          //self.$router.push("/comment")
         })
-        .catch((error) => {
-          console.log(error);
-        });
-  },
-  methods: {
-    upload: function(event) {
-      console.log(event)
-          this.image = event.target.files[0]
-          this.fileName = event.target.files[0].name
-          console.log(this.image)
+        .catch((error) => console.log(error));
     },
-    updateCom: function(comment){
-      console.log(comment.idcomment)
-      const test = "test"
-      this.idtest = comment.idcomment;
-      const fd = new FormData();
-      if(test == true){
-        fd.append("title", this.title);
-        fd.append("content",this.content);
-        fd.append("image", this.image, this.image.filename);
-      }else{
-        fd.append("title", this.title);
-        fd.append("content", this.content)
-        fd.append("image", this.image, this.image.filename)
-      }
-      axios
-      .put(`http://localhost:3000/api/comment/${this.idtest}` ,fd,{
-
-        headers:{
-           Authorization: "Bearer " + localStorage.getItem("userToken"),
-        }
-      })
-      .then((response)=>{
-        console.log(fd)
-        console.log(response)
-        console.log("update fait")
-        //self.$router.push("/comment")
-      })
-      .catch((error) => console.log(error))
-    }
   },
 };
 </script>
@@ -136,7 +134,9 @@ body {
   font-family: "Poppins", sans-serif;
   background-color: aliceblue;
 }
-
+p {
+  font-weight: bolder;
+}
 .wrapper {
   padding: 30px 50px;
   border: 1px solid #ddd;

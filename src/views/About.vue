@@ -24,7 +24,7 @@
     </p>
 
     <p>Site crée par "Adrien Rajerinera"</p>
-    <p class="cordialement"> Cordialement!</p>
+    <p class="cordialement">Cordialement!</p>
   </div>
 </template>
 
@@ -38,7 +38,7 @@ export default {
 .about {
   font-size: 20px;
   font-weight: bold;
-  margin-top: 80px
+  margin-top: 80px;
 }
 p {
   text-align: justify;
@@ -46,7 +46,7 @@ p {
   margin-right: auto;
   width: 80%;
 }
-.cordialement{
-    text-align: center;
+.cordialement {
+  text-align: center;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav/>
+    <Nav />
     <Contacts />
     <Footer />
   </div>
@@ -9,7 +9,7 @@
 <script>
 import Nav from "../components/Nav.vue";
 import Contacts from "../components/Contacts.vue";
-import Footer from "../components/Footer.vue"
+import Footer from "../components/Footer.vue";
 
 export default {
   name: "contact",
@@ -21,5 +21,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

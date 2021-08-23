@@ -3,9 +3,7 @@
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3 footers">
       © 2021 Copyright:
-      <a href="mailto: adrien.rajerinera@live.fr">
-        Rajerinera Adrien
-      </a>
+      <a href="mailto: adrien.rajerinera@live.fr"> Rajerinera Adrien </a>
     </div>
     <!-- Copyright -->
   </footer>
@@ -23,8 +21,8 @@
 .footers {
   color: whitesmoke;
 }
-a{
-    text-decoration: none;
-    color: whitesmoke
+a {
+  text-decoration: none;
+  color: whitesmoke;
 }
 </style>
