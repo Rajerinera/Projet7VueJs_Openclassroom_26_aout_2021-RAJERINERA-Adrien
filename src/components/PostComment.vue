@@ -21,7 +21,6 @@
                 class="form-control"
                 id="title"
                 placeholder="Your title"
-                required=""
                 rows="3"
                 v-model="title"
               >
@@ -30,7 +29,6 @@
                 class="form-control"
                 id="message"
                 placeholder="Your message"
-                required=""
                 rows="4"
                 v-model="content"
               >
@@ -71,6 +69,7 @@ export default {
       idcom: iduser1,
       selectedFileName: null,
       selectedFile: null,
+      author: "",
       err: "",
       show: true,
       firstname: ""
@@ -91,11 +90,13 @@ export default {
         fd.append("title", this.title);
         fd.append("content", this.content);
         fd.append("image", this.image, this.image.filename);
+        fd.append("author", this.$store.state.user.first_name)
         fd.append("idcom", this.idcom);
       } else {
         fd.append("title", this.title);
         fd.append("content", this.content);
         fd.append("image", this.image, this.image.filename)
+        fd.append("author", this.$store.state.user.first_name)
         fd.append("idcom", this.idcom);
       }
       console.log(fd);

@@ -11,77 +11,147 @@
 
       <!-- Login Form -->
       <form>
+        <p>
+          <input
+            v-model="state.first_name"
+            type="text"
+            id="firstname"
+            lass="fadeIn second"
+            name="firstname"
+            placeholder="firstname"
+          /><br />
+          <span v-if="v$.first_name.$error">
+            {{ v$.password.first_name.$errors[0].$message }}
+          </span>
+        </p>
+        <p>
+          <input
+            v-model="state.name"
+            type="text"
+            id="name"
+            lass="fadeIn second"
+            name="name"
+            placeholder="name"
+          />
+          <span v-if="v$.name.$error">
+            {{ v$.password.name.$errors[0].$message }}
+          </span>
+        </p>
+        <p>
+          <input
+            v-model="state.job"
+            type="text"
+            id="login"
+            class="fadeIn second"
+            name="job"
+            placeholder="Votre metier"
+          /><br />
+          <span v-if="v$.job.$error">
+            {{ v$.job.$errors[0].$message }}
+          </span>
+        </p>
+        <p>
+          <input
+            v-model="state.email"
+            type="text"
+            id="email"
+            class="fadeIn second"
+            name="email"
+            placeholder="email"
+          /><br />
+          <span v-if="v$.email.$error">
+            {{ v$.email.$errors[0].$message }}
+          </span>
+        </p>
+        <p>
+          <input
+            v-model="state.password.pass"
+            type="password"
+            id="password"
+            class="fadeIn third"
+            name="password"
+            placeholder="Password"
+          /><br />
+          <span v-if="v$.password.pass.$error">
+            {{ v$.password.pass.$errors[0].$message }}
+          </span>
+        </p>
+        <p>
+          <input
+            v-model="state.password.confirm"
+            type="password"
+            id="passwordConfirm"
+            class="fadeIn third"
+            name="passwordConfirm"
+            placeholder="Confirm"
+          /><br />
+          <span v-if="v$.password.confirm.$error">
+            {{ v$.password.confirm.$errors[0].$message }}
+          </span>
+        </p>
         <input
-          v-model="dataLog.first_name"
-          type="text"
-          id="firstname"
-          lass="fadeIn second"
-          name="firstname"
-          placeholder="firstname"
+          type="submit"
+          class="fadeIn fourth"
+          value="S'inscrire"
+          @click="logaccount"
         />
-        <input
-          v-model="dataLog.name"
-          type="text"
-          id="name"
-          lass="fadeIn second"
-          name="name"
-          placeholder="name"
-        />
-        <input
-          v-model="dataLog.job"
-          type="text"
-          id="login"
-          class="fadeIn second"
-          name="job"
-          placeholder="Votre metier"
-        />
-        <input
-          v-model="dataLog.email"
-          type="text"
-          id="login"
-          class="fadeIn second"
-          name="email"
-          placeholder="email"
-        />
-        <input
-          v-model="dataLog.password"
-          type="text"
-          id="password"
-          class="fadeIn third"
-          name="login"
-          placeholder="password"
-        />
-        <input type="submit" class="fadeIn fourth" @click="logaccount" value="S'inscrire" />
       </form>
     </div>
   </div>
 </template>
 
 <script>
+import useValidate from "@vuelidate/core";
+import { required, email, minLength, sameAs } from "@vuelidate/validators";
+import { reactive, computed } from "vue";
 import axios from "axios";
 export default {
   name: "Log",
-  data() {
-    return {
-      dataLog: {
-        first_name:"",
+  setup() {
+    const state = reactive({
+        first_name: "",
         name: "",
-        job:"",
+        job: "",
         email: "",
-        password: "",
-      },
+        password: {
+          pass: "",
+          confirm: "",
+        },
       error: "",
       err: "",
+    });
+    const rules = computed(() => {
+      return {
+          first_name: { required },
+          name: { required },
+          job: { required },
+          email: { required, email },
+          password: {
+            pass: { required, minLength: minLength(8) },
+            confirm: { required, sameAs: sameAs(state.password.pass) },
+          },
+      };
+    });
+    const v$ = useValidate(rules, state);
+    return {
+      v$,
+      state,
     };
   },
-  
-
   methods: {
-    logaccount: function () {
-      const datalog1 = "test";
-      if (datalog1) {
+    logaccount: function (e) {
+      e.preventDefault(e);
+      this.v$.$validate();
+      console.log(this.v$.$validate())
+      if (!this.v$.$error) {
         axios
-          .post("http://localhost:3000/signup/", this.dataLog)
+          .post("http://localhost:3000/signup/",{
+            first_name: this.state.first_name,
+            name: this.state.name,
+            job: this.state.job,
+            email: this.state.email,
+            password: this.state.password.pass,
+          })            
           .then((response) => {
             console.log(response);
             location.replace("http://localhost:8080/register");
@@ -99,6 +169,11 @@ export default {
 </script>
 
 <style scoped>
+span {
+  font-size: 15px;
+  font-family: cursive;
+  font-weight: bold;
+}
 
 a {
   color: #92badd;
@@ -206,7 +281,8 @@ input[type="reset"]:active {
   transform: scale(0.95);
 }
 
-input[type="text"] {
+input[type="text"],
+[type="password"] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -227,12 +303,13 @@ input[type="text"] {
   border-radius: 5px 5px 5px 5px;
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus,
+[type="password"]:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }
 
-input[type="text"]:placeholder {
+input[type="text"] [type="password"]:placeholder {
   color: #cccccc;
 }
 

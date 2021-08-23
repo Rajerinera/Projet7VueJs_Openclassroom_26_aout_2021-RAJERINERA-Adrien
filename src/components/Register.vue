@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper fadeInDown">
-    <h1> Connectez vous! </h1>
+    <h1>Connectez vous!</h1>
     <div id="formContent">
       <!-- Tabs Titles -->
 
@@ -12,7 +12,7 @@
       <!-- Login Form -->
       <form>
         <input
-          v-model="dataConnect.email"
+          v-model="state.email"
           type="text"
           id="login"
           class="fadeIn second"
@@ -20,15 +20,20 @@
           placeholder="email"
         />
         <input
-          v-model="dataConnect.password"
-          type="text"
+          v-model="state.password"
+          type="password"
           id="password"
           class="fadeIn third"
           name="login"
           placeholder="password"
         />
         <router-link to="/comment">
-        <input type="submit" class="fadeIn fourth" placeholder="Se connecter" @click="loginAccount"/>
+          <input
+            type="submit"
+            class="fadeIn fourth"
+            placeholder="Se connecter"
+            @click="loginAccount"
+          />
         </router-link>
       </form>
     </div>
@@ -36,23 +41,38 @@
 </template>
 
 <script>
+import useValidate from "@vuelidate/core";
+import { required, email, minLength } from "@vuelidate/validators";
+import { reactive, computed } from "vue";
 import axios from "axios";
 export default {
-  name: "register",
-  data() {
+  name: "Log",
+  setup() {
+    const state = reactive({
+      email: "",
+      password: "",
+    });
+    const rules = computed(() => {
+      return {
+        email: { required, email },
+        password: { required, minLength: minLength(8) },
+      };
+    });
+    const v$ = useValidate(rules, state);
     return {
-      dataConnect: {
-        email: "",
-        password: "",
-      },
-      err: "",
+      v$,
+      state,
     };
   },
   methods: {
-    loginAccount: function () {
+    loginAccount: function (e) {
+      e.preventDefault(e);
       if (this.email !== null || this.password !== null) {
         axios
-          .post("http://localhost:3000/login", this.dataConnect)
+          .post("http://localhost:3000/login", {
+            email: this.state.email,
+            password: this.state.password,
+          })
           .then((response) => {
             console.log(response);
             const userchoice = response.data.result.iduser;
@@ -186,7 +206,8 @@ input[type="reset"]:active {
   transform: scale(0.95);
 }
 
-input[type="text"] {
+input[type="text"],
+[type="password"] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;

@@ -5,11 +5,11 @@
       <h2 class="media-heading">{{ comment.title }}</h2>
       <p>{{ comment.content }}</p>
       <img :src="comment.image" />
-      <p v-if="comment.idcom == user.iduser"> Publiée par : {{user.name}}</p>
+      <div> Publiée par <b>{{comment.author}}</b> </div>
       <ul class="list-unstyled list-inline media-detail pull-right">
         <li>
           <button class="btn btn-danger"
-            v-if="idcom == comment.idcom || idcom == 9"
+            v-if="idcom == comment.idcom || idcom == 16"
             @click="deleteCom(comment)"
           >
             Supprimer

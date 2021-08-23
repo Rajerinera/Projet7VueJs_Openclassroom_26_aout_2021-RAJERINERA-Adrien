@@ -1,7 +1,7 @@
 <template>
 <div>
 <h4 class="pb-4 border-bottom">Modifier votre commentaire</h4>
-<form v-for="(comment, i) in comments" :key="comment.idcom">
+<form v-for="(comment, i) in comments.slice().reverse()" :key="comment.idcom">
   <div class="wrapper bg-white mt-sm-5">
     <div class="py-2">
       <div class="row py-2">
