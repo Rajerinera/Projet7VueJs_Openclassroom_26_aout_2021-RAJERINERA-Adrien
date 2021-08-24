@@ -49,7 +49,7 @@
       </div>
       <div class="d-sm-flex align-items-center pt-3" id="deactivate">
         <div class="ml-auto">
-          <button class="btn danger" type="submit" @click="deleteAccount">
+          <button class="btn danger" type="submit" @click="deleteAccount()">
             Supprimer votre compte
           </button>
         </div>
@@ -103,7 +103,7 @@ export default {
         axios
           .delete("http://localhost:3000/" + id, {
             headers: {
-              Authorization: "Bearer" + localStorage.getItem("userToken"),
+              Authorization: "Bearer " + localStorage.getItem("userToken"),
             },
           })
           .then(() => {

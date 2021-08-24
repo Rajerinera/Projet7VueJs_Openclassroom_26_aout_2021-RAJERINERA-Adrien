@@ -10,6 +10,7 @@ export default new Vuex.Store({
       job: "NC",
       email: "NC",
       password: "NC",
+      admin: false,
     },
     comment: {
       idcomment: "NC",
@@ -20,12 +21,13 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    userInfo(state, [iduser, first_name, name, job, email, password]) {
+    userInfo(state, [iduser, first_name, name, job, email, password, admin]) {
       (state.user.iduser = iduser),
         (state.user.first_name = first_name),
         (state.user.name = name),
         (state.user.job = job);
       (state.user.email = email), (state.user.password = password);
+      state.user.admin = admin;
     },
     /*commentInfo(state, [idcomment, idcom, title, content, image]) {
         state.comment.idcomment = idcomment,
@@ -53,6 +55,7 @@ export default new Vuex.Store({
             response.data[0].job,
             response.data[0].email,
             response.data[0].password,
+            response.data[0].admin,
           ]);
           console.log(valeur);
         })

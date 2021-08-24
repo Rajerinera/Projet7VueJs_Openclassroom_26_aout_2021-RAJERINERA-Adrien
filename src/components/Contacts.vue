@@ -9,34 +9,37 @@
                 <tr>
                   <th><span>User</span></th>
                   <th><span>Emploi:</span></th>
+                  <th class="text-center"><span>Status</span></th>
                   <th class="text-center"><span>Email</span></th>
                   <th class="text-center"><span>Console Admin</span></th>
                 </tr>
               </thead>
-              <tbody v-for="user in users" :key="user.iduser">
+              <tbody v-for="use in users" :key="use.iduser">
                 <tr>
                   <td class="userClass">
                     <img src="../assets/image/icon.png" alt="icon" />
-                    <p class="name">{{ user.name }}</p>
+                    <p class="name">{{ use.name }}</p>
                   </td>
-                  <td>{{ user.job }}</td>
+                  <td>{{ use.job }}</td>
+                  <td class="text-center">
+                    <div>
+                      <span v-if="use.admin === 0" class="label label-default">
+                        Utilisateur
+                      </span>
+                      <span v-else class="label label-default">
+                        Administrateur
+                      </span>
+                    </div>
+                  </td>
                   <td>
-                    <a href="#">{{ user.email }}</a>
+                    <a href="#">{{ use.email }}</a>
                   </td>
                   <td style="width: 20%">
-                    <a href="#" class="table-link">
-                      <span class="fa-stack">
-                        <i class="fa fa-square fa-stack-2x"></i>
-                        <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-                      </span>
-                    </a>
-                    <a href="#" class="table-link">
-                      <span class="fa-stack">
-                        <i class="fa fa-square fa-stack-2x"></i>
-                        <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                      </span>
-                    </a>
-                    <a href="#" class="table-link danger">
+                    <a
+                      type="submit"
+                      @click="deleteUser(use)"
+                      class="table-link danger"
+                    >
                       <span class="fa-stack">
                         <i class="fa fa-square fa-stack-2x"></i>
                         <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
@@ -55,7 +58,9 @@
 
 <script>
 import axios from "axios";
+import { mapState } from "vuex";
 let iduser1 = localStorage.getItem("userChoice");
+console.log(iduser1);
 export default {
   name: "profile",
   data() {
@@ -69,6 +74,9 @@ export default {
       stat: [],
       status: iduser1,
     };
+  },
+  computed: {
+    ...mapState(["user"]),
   },
   mounted() {
     this.users = [];
@@ -86,7 +94,27 @@ export default {
       })
       .catch((error) => {
         console.log(error);
-      });
+      }),
+      this.$store.dispatch("getInfo");
+  },
+  methods: {
+    deleteUser: function (use) {
+      const deleteUser = window.confirm("Etes vous sûr?");
+      if (deleteUser == true) {
+        const idsupp = use.iduser;
+        console.log(use.iduser);
+        axios
+          .delete("http://localhost:3000/" + idsupp, {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("userToken"),
+            },
+          })
+          .then(() => {
+            location.replace(location.origin);
+          })
+          .catch((error) => console.log(error));
+      }
+    },
   },
 };
 </script>

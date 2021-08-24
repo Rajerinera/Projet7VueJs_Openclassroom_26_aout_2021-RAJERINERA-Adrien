@@ -1,9 +1,14 @@
 <template>
   <div>
     <h1>Bienvenue sur notre réseau social Groupomania</h1>
-    <p class="bienvenue">
-      Vous êtes connecté en tant que <b>{{ user.first_name }}</b>
-    </p>
+    <div>
+      <p class="bienvenue" v-if="user.admin == 0">
+        Vous êtes connecté en tant que <b>{{ user.first_name }}</b>
+      </p>
+      <p class="bienvenue" v-else>
+        Vous êtes connecté en tant qu'administrateur vous avez accès aux membres
+      </p>
+    </div>
     <button
       type="button"
       class="btn btn-primary publi"
@@ -81,6 +86,7 @@ export default {
       err: "",
       show: true,
       firstname: "",
+      buttonPubli: true,
     };
   },
   computed: {

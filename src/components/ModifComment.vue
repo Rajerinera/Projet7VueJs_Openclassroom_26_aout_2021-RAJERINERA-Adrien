@@ -7,7 +7,7 @@
           <div class="row py-2">
             <div class="col-md-6">
               <p>TITRE :</p>
-              <p>"{{ comment.title }}"</p>
+              <p>{{ comment.title }}</p>
               <textarea
                 type="text"
                 class="bg-light form-control"

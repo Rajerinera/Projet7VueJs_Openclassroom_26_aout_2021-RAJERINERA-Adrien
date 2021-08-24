@@ -26,9 +26,9 @@
             ><b>Profile</b></router-link
           >
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="user.admin == 1">
           <router-link class="nav-link" to="/contact"
-            ><b>Contact</b></router-link
+            ><b>Membres</b></router-link
           >
         </li>
         <li class="nav-item">
@@ -46,10 +46,18 @@
   </nav>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   data: function () {
     return {};
   },
+  computed: {
+    ...mapState(["user"]),
+  },
+  mounted() {
+    this.$store.dispatch("getInfo");
+  },
+
   methods: {
     disconnected() {
       window.alert("Vous êtes déconnecté");

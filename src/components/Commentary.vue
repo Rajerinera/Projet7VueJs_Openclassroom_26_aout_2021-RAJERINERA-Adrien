@@ -1,27 +1,32 @@
 <template>
   <div class="media">
     <h1>L'actualité du reséau!</h1>
-    <div class="media-body" v-for="comment in comments" :key="comment.idcom">
-      <h2 class="media-heading">{{ comment.title }}</h2>
-      <p>{{ comment.content }}</p>
-      <div>
+    <div
+      class="media-body"
+      v-for="comment in comments.slice().reverse()"
+      :key="comment.idcom"
+    >
+      <div class="mask">
+        <h2 class="media-heading">{{ comment.title }}</h2>
+        <p>{{ comment.content }}</p>
         <img v-if="comment.image !== null" :src="comment.image" />
         <img v-else src="../assets/image/icon.png" />
+
+        <div>
+          Publiée par <b>{{ comment.author }}</b>
+        </div>
+        <ul class="list-unstyled list-inline media-detail pull-right">
+          <li>
+            <button
+              class="btn btn-danger"
+              v-if="idcom == comment.idcom || user.admin == 1"
+              @click="deleteCom(comment)"
+            >
+              Supprimer
+            </button>
+          </li>
+        </ul>
       </div>
-      <div>
-        Publiée par <b>{{ comment.author }}</b>
-      </div>
-      <ul class="list-unstyled list-inline media-detail pull-right">
-        <li>
-          <button
-            class="btn btn-danger"
-            v-if="idcom == comment.idcom || idcom == 9"
-            @click="deleteCom(comment)"
-          >
-            Supprimer
-          </button>
-        </li>
-      </ul>
     </div>
   </div>
 </template>
@@ -38,11 +43,9 @@ export default {
       image: "",
       idcom: iduser1,
       comments: [],
+      mask: true,
     };
   },
-  //computed:{
-  //...mapState(['comment']),
-  //},
   computed: {
     ...mapState(["user"]),
   },
@@ -86,6 +89,9 @@ export default {
 };
 </script>
 <style scoped>
+.mask {
+  border: 1px solid black;
+}
 img {
   width: 70%;
   height: 50%;
